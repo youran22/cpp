@@ -1,0 +1,20 @@
+push and commit
+	…or create a new repository on the command line
+		echo "# cpp" >> README.md
+		git init
+		git add README.md
+		git commit -m "first commit"
+		git remote add origin https://github.com/youran22/cpp.git
+		git push -u origin master
+	
+	…or push an existing repository from the command line	
+		git remote add origin https://github.com/youran22/cpp.git
+		git push -u origin master
+	
+	…or import code from another repository	
+		You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
+避免重复输入密码：
+	https://blog.csdn.net/her__0_0/article/details/72847053
+		用了二种方法：
+			git config –-global credential.helper store
+				//注意网上的是一个杠的：-global 是不对的；
