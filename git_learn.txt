@@ -5,7 +5,9 @@ push and commit
 		git add README.md
 		git commit -m "first commit"
 		git remote add origin https://github.com/youran22/cpp.git
+			添加远程地址
 		git push -u origin master
+			提交
 	
 	…or push an existing repository from the command line	
 		git remote add origin https://github.com/youran22/cpp.git
