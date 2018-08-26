@@ -1,22 +1,24 @@
 push and commit
-	¡­or create a new repository on the command line
+	â€¦or create a new repository on the command line
 		echo "# cpp" >> README.md
 		git init
 		git add README.md
 		git commit -m "first commit"
 		git remote add origin https://github.com/youran22/cpp.git
-			Ìí¼ÓÔ¶³ÌµØÖ·
+			æ·»åŠ è¿œç¨‹åœ°å€
 		git push -u origin master
-			Ìá½»
+			æäº¤
 	
-	¡­or push an existing repository from the command line	
+	â€¦or push an existing repository from the command line	
 		git remote add origin https://github.com/youran22/cpp.git
 		git push -u origin master
 	
-	¡­or import code from another repository	
+	â€¦or import code from another repository	
 		You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
-±ÜÃâÖØ¸´ÊäÈëÃÜÂë£º
+é¿å…é‡å¤è¾“å…¥å¯†ç ï¼š
 	https://blog.csdn.net/her__0_0/article/details/72847053
-		ÓÃÁË¶şÖÖ·½·¨£º
-			git config ¨C-global credential.helper store
-				//×¢ÒâÍøÉÏµÄÊÇÒ»¸ö¸ÜµÄ£º-global ÊÇ²»¶ÔµÄ£»
+		ç”¨äº†äºŒç§æ–¹æ³•ï¼š
+			git config â€“-global credential.helper store
+				//æ³¨æ„ç½‘ä¸Šçš„æ˜¯ä¸€ä¸ªæ çš„ï¼š-global æ˜¯ä¸å¯¹çš„ï¼›
+åˆ é™¤ï¼š
+å¢åŠ ï¼š
