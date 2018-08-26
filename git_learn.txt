@@ -20,5 +20,7 @@ push and commit
 		用了二种方法：
 			git config –-global credential.helper store
 				//注意网上的是一个杠的：-global 是不对的；
+地址：
+	https://github.com/youran22/android_test.git
 删除：
 增加：
