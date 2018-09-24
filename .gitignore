@@ -1,20 +1,41 @@
 ##ignore this file##
+
+#./*
 .git/
 ##*.*
 !.gitignore
 
-proj_2012/*
+######################################################################################################
+#proj_2012/*
 !proj_2012/*.*
 proj_2012/*.sdf
-!proj_2012/BoostClient/*.*
-!proj_2012/BoostClient/client/*
+proj_2012/*.opensdf
+#这个是必须的？
+#proj_2012/proj_2012.v11.suo
 
 !proj_2012/TestServer/*.*
 !proj_2012/TestServer/sever/*
 proj_2012/TestServer/*.sdf
+proj_2012/TestServer/*.opensdf
+proj_2012/TestServer/*.filters
+#这个是需要的？
+#proj_2012/TestServer/*.vcxproj
+
+!proj_2012/BoostClient/*.*
+!proj_2012/BoostClient/client/*
+proj_2012/BoostClient/Debug/*
+proj_2012/BoostClient/*.sdf
+proj_2012/BoostClient/*.opensdf
+proj_2012/BoostClient/*.filters
 
 
-!proj_2012/Projects/Socket/*
-!proj_2012/Projects/*.*
 
-!proj_2012/script/*.*
+############################################################################################################
+#./Projects/*
+!Projects/Socket/*
+!Projects/*.*
+
+
+######################################################################################################
+#./script/*
+!script/*.*
