@@ -1,0 +1,44 @@
+注释：
+查找命令帮助
+	命令行下 netsh -h
+命令
+	netsh
+注释：
+	在批处理中，段注释有一种比较常用的方法：
+		goto start
+		= 可以是多行文本，可以是命令
+		= 可以包含重定向符号和其他特殊字符
+		= 只要不包含 :start 这一行，就都是注释
+		:start
+	
+	另外，还有其他各种注释形式，比如：
+	
+	1、:: 注释内容（第一个冒号后也可以跟任何一个非字母数字的字符）
+	2、rem 注释内容（不能出现重定向符号和管道符号）
+	3、echo 注释内容（不能出现重定向符号和管道符号）〉nul
+	4、if not exist nul 注释内容（不能出现重定向符号和管道符号）
+	5、:注释内容（注释文本不能与已有标签重名）
+	6、%注释内容%（可以用作行间注释，不能出现重定向符号和管道符号）
+	7、goto 标签 注释内容（可以用作说明goto的条件和执行内容）
+	8、:标签 注释内容（可以用作标签下方段的执行内容）
+
+命令
+	netsh
+		设置ip、网关、
+			netsh interface ip set address "本地连接" static 10.45.128.116 255.255.255.0 10.45.128.254 1
+		添加多个DNS服务器方法：
+			netsh interface ip add dns name = "本地连接" addr = 202.105.12.226
+			netsh interface ip add dns name = "本地连接" addr = 61.144.56.100
+			netsh interface ip add dns name = "本地连接" addr = 202.96.128.68
+			netsh interface ip add dns name = "本地连接" addr = 202.96.128.86
+		清空DNS服务器的方法：
+			rem 清空DNS
+			netsh interface ip set dns name = "本地连接" static addr = none 
+		
+		使用dhcp自动分配ip的快捷netsh命令:
+			netsh interface ip set address name="本地连接" source=dhcp
+		
+		为一个网络连接设置二个或多个IP地址:
+			netsh interface ip set address name="本地连接" source=static addr=66.11.12.12 mask=255.255.255.0
+			netsh interface ip add address name="本地连接" addr=100.100.100.105 mask=255.255.255.0
+			netsh interface ip add address name="本地连接" addr=192.168.2.243 mask=255.255.255.0

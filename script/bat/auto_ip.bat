@@ -1,0 +1,9 @@
+Echo off 
+echo  自动获取IP地址....
+netsh interface ip set address name = "无线网络连接 2" source = dhcp
+echo  自动获取DNS服务器....
+netsh interface ip set dns name = "无线网络连接 2" source = dhcp
+Echo 自动获取IP成功,按任一键后,就可以使用外网了……
+Pause
+
+
