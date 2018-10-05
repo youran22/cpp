@@ -1,6 +1,7 @@
 push and commit
-	…or create a new repository on the command line
+	//…or create a new repository on the command line
 		echo "# cpp" >> README.md
+		
 		git init
 		git add README.md
 		git commit -m "first commit"
@@ -9,11 +10,12 @@ push and commit
 		git push -u origin master
 			提交
 	
-	…or push an existing repository from the command line	
+	//…or push an existing repository from the command line	
+	
 		git remote add origin https://github.com/youran22/cpp.git
 		git push -u origin master
 	
-	…or import code from another repository	
+	//…or import code from another repository	
 		You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
 避免重复输入密码：
 	https://blog.csdn.net/her__0_0/article/details/72847053
@@ -24,3 +26,25 @@ push and commit
 	https://github.com/youran22/android_test.git
 删除：
 增加：
+远程仓库名称：
+	git remote -v
+		https://git-scm.com/book/zh/v1/Git-%E5%9F%BA%E7%A1%80-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8
+	git fetch [remote-name]
+		到远程仓库中拉取所有你本地仓库中还没有的数据。
+		运行完成后，你就可以在本地访问该远程仓库中的所有分支，将其中某个分支合并到本地，或者只是取出某个分支，一探究竟。
+	git remote show [remote-name] 查看某个远程仓库的详细信息，比如要看所克隆的 origin 仓库，可以运行：
+		git remote show origin
+	
+	 git remote rename 命令修改某个远程仓库在本地的简称，比如想把 pb 改成 paul，可以这么运行：
+		$ git remote rename pb paul
+		$ git remote
+		
+更新：
+	git pull
+		如果设置了某个分支用于跟踪某个远端仓库的分支（参见下节及第三章的内容），可以使用 git pull 命令自动抓取数据下来，然后将远端分支自动合并到本地仓库中当前分支。
+		在日常工作中我们经常这么用，既快且好。
+		际上，默认情况下 git clone 命令本质上就是自动创建了本地的 master 分支用于跟踪远程仓库中的 master 分支（假设远程仓库确实有 master 分支）。
+		所以一般我们运行 git pull，目的都是要从原始克隆的远端仓库中抓取数据后，合并到工作目录中的当前分支。
+中文
+	cp936
+	utf-8
