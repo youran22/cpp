@@ -19,7 +19,7 @@ proj_2009/qcom/*.pdb
 proj_2009/qcom/*.ncb
 
 #QtTest
-proj_2009/QtTest/QtTest/*
+!proj_2009/QtTest/QtTest/*
 proj_2009/QtTest/QtTest/Debug/*
 proj_2009/QtTest/QtTest/*.ncb
 
@@ -33,10 +33,10 @@ proj_2009/QtTest/QtTest/QtTestApp/GeneratedFiles/*
 
 
 #ReadWriteExcel
-proj_2009/ReadWriteExcel/*
+!proj_2009/ReadWriteExcel/*
 
 #TestConsole
-proj_2009/TestConsole/*
+!proj_2009/TestConsole/*
 proj_2009/TestConsole/Debug/*
 
 #TestConsole  Console32
@@ -92,13 +92,15 @@ proj_2012/BoostClient/common
 
 
 ############################################################################################################
+#  eclipse 必传的文件夹和文件：jni  libs  res  src  .classpath .project .androidManifest.xml copySrcFile.bat 
+#  ic_launcher-web.png proguard-project.txt project.properties
 #proj_eclipse
-proj_eclipse/*
+!proj_eclipse/*
 proj_eclipse/.metadata/*
 
 #proj_eclipse  NDK_07
 
-proj_eclipse/NDK_07/*
+!proj_eclipse/NDK_07/*
 proj_eclipse/NDK_07/.externalToolBuilders
 proj_eclipse/NDK_07/.settings
 proj_eclipse/NDK_07/assets
@@ -110,7 +112,7 @@ proj_eclipse/NDK_07/.cproject
 	
 #proj_eclipse  PrjTest00
 
-proj_eclipse/PrjTest00/*
+!proj_eclipse/PrjTest00/*
 proj_eclipse/PrjTest00/.externalToolBuilders
 proj_eclipse/PrjTest00/.settings
 proj_eclipse/PrjTest00/assets
@@ -122,7 +124,7 @@ proj_eclipse/PrjTest00/.cproject
 
 #proj_eclipse  swigprj
 
-proj_eclipse/swigprj/*
+!proj_eclipse/swigprj/*
 proj_eclipse/swigprj/.externalToolBuilders
 proj_eclipse/swigprj/.settings
 proj_eclipse/swigprj/assets
@@ -134,8 +136,7 @@ proj_eclipse/swigprj/.cproject
 
 #proj_eclipse  testSwig
 
-proj_eclipse/testSwig/*
-proj_eclipse/testSwig/*
+!proj_eclipse/testSwig/*
 proj_eclipse/testSwig/.externalToolBuilders
 proj_eclipse/testSwig/.settings
 proj_eclipse/testSwig/assets
