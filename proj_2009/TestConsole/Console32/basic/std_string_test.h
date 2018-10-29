@@ -27,14 +27,14 @@ std::string to_string(T value)
 	return os.str() ;
 }
 
-double stod(std::string str)
-{
-	double Result;  
-	stringstream Oss;  
-	Oss<<str;  
-	Oss>>Result;  
-	return Result;
-}
+//double stod(std::string str)
+//{
+//	double Result;  
+//	stringstream Oss;  
+//	Oss<<str;  
+//	Oss>>Result;  
+//	return Result;
+//}
 
 }
 
@@ -50,4 +50,6 @@ int test_string_cctype();
 static void SplitFilename(const std::string& str); 
 int test_string_func(); 
 int test_string_ifstream_to_string();
+
+int CSring_to_string();
 

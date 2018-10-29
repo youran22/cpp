@@ -17,20 +17,23 @@
 //mainº¯Êý
 int _tmain(int argc, _TCHAR* argv[])
 {
-	double *pD = new double[100];
-	pD[0]=3;
-	cout<<pD[0]<<endl;
 
-	char ch[5]={0};
-	std::string str;
-	int nSize = sprintf_s(ch, 10, "%02X", 394);
-	str=ch;
-	cout<<str<<endl;
+	CSring_to_string();
 
-	char *p=ch;
-	cout<<p<<endl;
-	char p2=ch[0];
-	cout<<p2<<endl;
+	//double *pD = new double[100];
+	//pD[0]=3;
+	//cout<<pD[0]<<endl;
+
+	//char ch[5]={0};
+	//std::string str;
+	//int nSize = sprintf_s(ch, 10, "%02X", 394);
+	//str=ch;
+	//cout<<str<<endl;
+
+	//char *p=ch;
+	//cout<<p<<endl;
+	//char p2=ch[0];
+	//cout<<p2<<endl;
 
 	//cout<<p->left(2)<<endl;
 

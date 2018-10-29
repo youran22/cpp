@@ -37,10 +37,17 @@ proj_2009/QtTest/QtTest/QtTestApp/GeneratedFiles/*
 
 #TestConsole
 !proj_2009/TestConsole/*
+#proj_2009/TestConsole/*.*
 proj_2009/TestConsole/Debug/*
+#无法消掉？
+proj_2009/TestConsole/*.ncb
 
 #TestConsole  Console32
 !proj_2009/TestConsole/Console32/*
+proj_2009/TestConsole/Console32/Debug/*
+proj_2009/TestConsole/Console32/*.ncb
+
+
 #不能！
 proj_2009/TestConsole/Console32/south_all/*
 

@@ -175,6 +175,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Console32.h"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -194,16 +198,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath=".\Console32.h"
-				>
-			</File>
 			<File
 				RelativePath=".\stdafx.h"
 				>
@@ -212,6 +206,12 @@
 				RelativePath=".\targetver.h"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
 		</Filter>
 		<Filter
 			Name="Resource Files"
@@ -236,34 +236,22 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="note"
+			Name="basic"
 			>
 			<File
-				RelativePath=".\my_2018\android.txt"
+				RelativePath=".\basic\std_string_test.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalOptions="-std=c++11"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\my_2018\coord.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\my_2018\database.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\note00.h"
-				>
-			</File>
-			<File
-				RelativePath=".\note01.h"
-				>
-			</File>
-			<File
-				RelativePath=".\my_2018\swig.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\my_2018\vibNavi.txt"
+				RelativePath=".\basic\std_string_test.h"
 				>
 			</File>
 		</Filter>
