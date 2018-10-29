@@ -5,13 +5,15 @@
 #include "JPSocketClient.h"
 #include "main.h"
 
-
-
 int _tmain(int argc, _TCHAR* argv[]) 
 {
+	UseScoket useSocket;
+	std::string str = "send data";
+	useSocket.post_message((const unsigned char* )str.c_str(), str.length());
+	TestServer();
 	//Test_CJPSocketClient();
 
-	Test_Client();
+	//Test_Client();
 	//Test_Simple0();
 
 	//startAsyncTcpClient("127.0.0.1", "9001");
@@ -21,7 +23,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	return 0;
 }
 
+void TestServer()
+{
 
+
+}
 void Test_Simple0()
 {
 	try
