@@ -2,6 +2,26 @@
 #include "std_string_test.h"
 #include <atlstr.h>//CString 
 
+
+void test_string_all()
+{
+	//test_string_init(); 
+	//test_string_base(); 
+	//test_string_cctype(); 
+	//static void SplitFilename(const std::string& str); 
+	test_string_func(); 
+	test_string_ifstream_to_string();
+
+	CSring_to_string();
+
+	std::string strSic = "#sic,,get,device.info";
+	std::string strRet = sprintf_bin_data((const unsigned char *)strSic.c_str(), strSic.length());
+
+	int a = 0;
+}
+
+
+
 int test_string_init()
 {
 	// 如果使用等号(=)初始化一个变量，实际上执行的是拷贝初始化，编译器把等号右侧的初始化拷贝到新创建的对象中去。
@@ -973,79 +993,155 @@ int test_string_ifstream_to_string()
 
 int CSring_to_string()
 {
-	//Unicode
-	CString sz1 = L"abc";
-	std::string sz11 = CT2A(sz1.GetBuffer()); //转化为非unicode.
+	//char * compare
+	{
+		char * pch = "invalid_command_error";
+		if(pch=="invalid_command_error")
+		{
+			std::cout << "char * == ok\r";
+		}
+		else
+		{
+			std::cout << "char * == no\r";
+		}
 
-	CString theCStr;
-	std::string STDStr( CW2A( theCStr.GetString() ) );       //采用的方法
-	//方法二
-	CString m_Name;
-	CT2CA pszName(m_Name);
-	std::string m_NameStd(pszName);
-	//方法三
-	CString str = L"Test";
-	std::wstring ws(str);
-	std::string s; 
-	s.assign(ws.begin(), ws.end());
+		const char *pc = pch;
+		if(pc=="invalid_command_error")
+		{
+			std::cout << "const char * == ok\r";
+		}
+		else
+		{
+			std::cout << "const char * == no\r";
+		}
 
-	//非unicode:
-	//CString sz2 = "abc";
-	//std::string sz22 = sz2.GetBuffer();  
+		if(0==strcmp(pc, "invalid_command_error"))
+			std::cout << "strcmp ok\r";
+		
+	}
+
+	//Cstring to string
+	{
+		//Unicode
+		CString sz1 = L"abc";
+		std::string sz11 = CT2A(sz1.GetBuffer()); //转化为非unicode.
+
+		CString theCStr;
+		std::string STDStr( CW2A( theCStr.GetString() ) );       //采用的方法
+		//方法二
+		CString m_Name;
+		CT2CA pszName(m_Name);
+		std::string m_NameStd(pszName);
+		//方法三
+		CString str = L"Test";
+		std::wstring ws(str);
+		std::string s; 
+		s.assign(ws.begin(), ws.end());
+
+		//非unicode:
+		//CString sz2 = "abc";
+		//std::string sz22 = sz2.GetBuffer();  
+
+	}
 
 
 	//其他测试：
-		{ // append 附加到字符串。通过在当前值的末尾添加其他字符来扩展字符串
-			std::string str;
-			std::string str2 = "Writing ";
-			std::string str3 = "print 10 and then 5 more";
-	 
-			// used in the same order as described above:
-			str.append(str2);                       // "Writing "
-			str.append(str3, 6, 3);                   // "10 "
-			str.append("dots are cool", 5);          // "dots "
-			str.append("here: ");                   // "here: "
-			str.append(10u, '.');                    // ".........."
-			str.append(str3.begin() + 8, str3.end());  // " and then 5 more"
-			str.append(5, 0x2E);                // "....."
-	 
-			std::cout << str << '\n';
-		}
-	 
-		{ // assign 赋值
+	{ // append 附加到字符串。通过在当前值的末尾添加其他字符来扩展字符串
+		std::string str;
+		std::string str2 = "Writing ";
+		std::string str3 = "print 10 and then 5 more";
+
+		// used in the same order as described above:
+		str.append(str2);                       // "Writing "
+		str.append(str3, 6, 3);                   // "10 "
+		str.append("dots are cool", 5);          // "dots "
+		str.append("here: ");                   // "here: "
+		str.append(10u, '.');                    // ".........."
+		str.append(str3.begin() + 8, str3.end());  // " and then 5 more"
+		str.append(5, 0x2E);                // "....."
+
+		std::cout << str << '\n';
+	}
+
+	{ // assign 赋值
 		std::string str;
 		std::string base = "The quick brown fox jumps over a lazy dog.";
-	 
+
 		// used in the same order as described above:
 		str.assign(base);
 		std::cout << str << '\n';
-	 
+
 		str.assign(base, 10, 9);
 		std::cout << str << '\n';         // "brown fox"
-	 
+
 		str.assign("pangrams are cool", 7);
 		std::cout << str << '\n';         // "pangram"
-	 
+
 		str.assign("c-string");
 		std::cout << str << '\n';         // "c-string"
-	 
+
 		str.assign(10, '*');
 		std::cout << str << '\n';         // "**********"
-	 
+
 		str.assign(10, 0x2D);
 		std::cout << str << '\n';         // "----------"
-	 
+
 		str.assign(base.begin() + 16, base.end() - 12);
 		std::cout << str << '\n';         // "fox jumps over"
 	}
-	 
-		{ // at
-			std::string str("Test string");
-			for (unsigned i = 0; i<str.length(); ++i) {
-				std::cout << str.at(i);
-			}
-			std::cout << '\n';
+
+	{ // at
+		std::string str("Test string");
+		for (unsigned i = 0; i<str.length(); ++i) 
+		{
+			std::cout << str.at(i);
 		}
+		std::cout << '\n';
+	}
+	{ // find
+		std::string str("There are two needles in this haystack with needles.");
+		std::string str2("needle");
+
+		// different member versions of find in the same order as above:
+		std::size_t found = str.find(str2);
+		if (found != std::string::npos)
+			std::cout << "first 'needle' found at: " << found << '\n';
+
+		found = str.find("needles are small", found + 1, 6);
+		if (found != std::string::npos)
+			std::cout << "second 'needle' found at: " << found << '\n';
+
+		found = str.find("haystack");
+		if (found != std::string::npos)
+			std::cout << "'haystack' also found at: " << found << '\n';
+
+		found = str.find('.');
+		if (found != std::string::npos)
+			std::cout << "Period found at: " << found << '\n';
+
+		// let's replace the first needle:
+		str.replace(str.find(str2), str2.length(), "preposition");
+		std::cout << str << '\n';
+	}
 
 	return 0;
+}
+
+//二进制显示
+std::string sprintf_bin_data(const unsigned char *data, const int sz)
+{
+	int cnt = sz;
+	if(sz > 16+11+5)
+		cnt = 32;
+
+	std::string log;
+	for(int i=0; i<cnt; i++)
+	{
+		char buf[10];
+		sprintf(buf, "%02x " , *(data+i) );
+
+		log = log + std::string(buf);
+	}
+
+	return log;
 }

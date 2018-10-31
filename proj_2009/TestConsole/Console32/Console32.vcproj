@@ -239,6 +239,14 @@
 			Name="basic"
 			>
 			<File
+				RelativePath=".\basic\file_test.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\basic\file_test.h"
+				>
+			</File>
+			<File
 				RelativePath=".\basic\std_string_test.cpp"
 				>
 				<FileConfiguration
@@ -272,6 +280,30 @@
 			</File>
 			<File
 				RelativePath=".\sortfunctions.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Serial"
+			>
+			<File
+				RelativePath=".\Serial\CESerialPort.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Serial\CESerialPort.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="log"
+			>
+			<File
+				RelativePath=".\log\SimpleLog.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\log\SimpleLog.h"
 				>
 			</File>
 		</Filter>

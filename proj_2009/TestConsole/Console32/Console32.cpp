@@ -12,13 +12,19 @@
 #include <stdarg.h>
 #include "Console32.h"
 #include "sortfunctions.h"
+#include "Serial/CESerialPort.h"
 
 //int _tmain(int argc, _TCHAR* argv[]);
 //mainº¯Êý
 int _tmain(int argc, _TCHAR* argv[])
 {
 
-	CSring_to_string();
+	//CCESerialPort serial;
+	//serial.Open(20);
+
+	//file_open_test();
+
+	test_string_all();
 
 	//double *pD = new double[100];
 	//pD[0]=3;
@@ -37,7 +43,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//cout<<p->left(2)<<endl;
 
-	test_math_insertSort();
+	//test_math_insertSort();
 
 	while(1);
 	return 0;
@@ -56,5 +62,10 @@ void test_math_insertSort()
 
 	//insertionSort test
 	insertionSort(arr, 7, 4, int_greater);
+}
+
+void test_serial()
+{
+	
 }
 

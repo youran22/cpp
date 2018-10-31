@@ -43,6 +43,8 @@ std::string to_string(T value)
 //{
 //	return T;
 //}
+
+void test_string_all();
  
 int test_string_init(); 
 int test_string_base(); 
@@ -52,4 +54,7 @@ int test_string_func();
 int test_string_ifstream_to_string();
 
 int CSring_to_string();
+
+//二进制显示
+std::string sprintf_bin_data(const unsigned char *data, const int sz);
 
