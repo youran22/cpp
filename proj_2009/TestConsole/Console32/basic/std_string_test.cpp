@@ -1124,6 +1124,28 @@ int CSring_to_string()
 		std::cout << str << '\n';
 	}
 
+	//int to string 
+	{
+		//注意：itoa并不是一个标准的C函数，它是Windows特有的，如果要写跨平台的程序，请用sprintf。
+		//itoa
+		int aa = 30;
+		char c[8];
+		itoa(aa, c, 16);//radix：转换后的进制数，可以是10进制、16进制等。
+
+		int  length = sprintf(c, "%05x", aa);
+
+		std::stringstream  ss;
+		ss<<aa;
+		std::string s1 = ss.str();
+
+		//可以这样理解，stringstream可以吞下不同的类型，根据s2的类型，然后吐出不同的类型。
+		std::string s2;
+		ss>>s2;
+
+		//使用boost库中的lexical_cast
+		//string s = boost::lexical_cast<string>(aa);
+	}
+
 	return 0;
 }
 

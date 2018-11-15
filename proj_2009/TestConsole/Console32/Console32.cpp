@@ -13,18 +13,75 @@
 #include "Console32.h"
 #include "sortfunctions.h"
 #include "Serial/CESerialPort.h"
+#include "Serial/CP400Cmd.h"
+#include <conio.h>//getch 
 
 //int _tmain(int argc, _TCHAR* argv[]);
 //mainº¯Êý
 int _tmain(int argc, _TCHAR* argv[])
 {
 
-	//CCESerialPort serial;
+	CCESerialPort serial;
 	//serial.Open(20);
+	serial.Open(6);
+	CP400Cmd cp400;
+	std::string str;
+	while(1)
+	{
+		std::cout << "ÇëÊäÈëÃüÁî£º"<<endl;
+		char ch = getch();
+		switch(ch)
+		{
+		case '1':
+			str = cp400.GetOpenCmd();
+			break;
+		case '2':
+			str = cp400.GetATFnCmd(1);
+			break;
+		case '3':
+			str = cp400.GetATSnCmd(128,2);
+			break;
+		case '4':
+			str = cp400.GetATSnCmd(133,2);
+			break;
+		case '9':
+			str = cp400.GetSaveChangeCmd();
+			break;
+		case '0':
+			str = cp400.GetCloseCmd();
+			break;
+		case 'e':
+			break;
+		default:
+			break;
+
+		}
+		std::cout<<ch<<endl;
+		serial.WritePort((char *)str.c_str(), str.length());
+	}
+	
+	
+	//master
+	str = cp400.GetOpenCmd();
+	str = cp400.GetATFnCmd(1);
+	str = cp400.GetATSnCmd(128,2);
+	str = cp400.GetATSnCmd(133,2);
+	str = cp400.GetATSnCmd(113,0);
+	str = cp400.GetSaveChangeCmd();
+	str = cp400.GetCloseCmd();
+	//slave
+	str = cp400.GetATFnCmd(2);
+	str = cp400.GetATSnCmd(128,2);
+	str = cp400.GetATSnCmd(133,2);
+	str = cp400.GetATSnCmd(105,2);
+	str = cp400.GetATSnCmd(140,65535);
+	str = cp400.GetSaveChangeCmd();
+	str = cp400.GetCloseCmd();
+	
 
 	//file_open_test();
 
-	test_string_all();
+	//test_string_all();
 
 	//double *pD = new double[100];
 	//pD[0]=3;

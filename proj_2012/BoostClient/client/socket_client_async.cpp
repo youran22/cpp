@@ -124,7 +124,8 @@ bool socket_client_async::OnRecv(const boost::system::error_code& error,size_t b
 	{
 		//std::string strRecv = (char *)m_data;
 		//std::cout<<strRecv<<std::endl;  
-		_pdata_callback->on_serial_data((const unsigned char*)m_data,bytes_transferred);
+		if(_pdata_callback)
+				_pdata_callback->on_serial_data((const unsigned char*)m_data,bytes_transferred);
 
 		memset(m_data,0,sizeof(m_data));
 		m_socket->async_read_some(boost::asio::buffer(m_data,_RECV_BUF_SIZE_),

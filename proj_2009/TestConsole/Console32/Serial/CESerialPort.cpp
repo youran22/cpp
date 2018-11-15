@@ -119,36 +119,41 @@ DWORD WINAPI CCESerialPort::ReadPortThread(LPVOID lpParameter)
 				}//end  if(!fReadState)
 				if(dwLength!=0)
 				{
-					std::string strData;
-					strData.append(buf, dwLength-2);
-					strData[0]='@';
-					strData.append(",OK");
-					strData.append(buf+dwLength-2,2);
-					m_pSerial->WritePort((char *)strData.c_str(), strData.length());
 
-					//device.update.begin
-					if(m_pSerial->m_nSendCount==1)
-					{
-						std::string strFile;
-						BinPackage package;
-						memset(&package, 0, sizeof(package));
-						memcpy(buf, &package, dwLength-5);
 
-						unsigned short nLenth=0;
-						memcpy(&nLenth, package.length, sizeof(package.length));
-						strFile.append((const char *)package.data, nLenth);
 
-						//device.update.end
-						strData = "@sic,,set,device.update.end,ok\r\n";
-						m_pSerial->WritePort((char *)strData.c_str(), strData.length());
-					}
+					//test_fasong 南方命令 begin
+					//std::string strData;
+					//strData.append(buf, dwLength-2);
+					//strData[0]='@';
+					//strData.append(",OK");
+					//strData.append(buf+dwLength-2,2);
+					//m_pSerial->WritePort((char *)strData.c_str(), strData.length());
 
-					std::string strTmp;
-					strTmp.append(buf+10, 19);
-					if(strTmp=="device.update.begin")
-					{
-						m_pSerial->m_nSendCount++;
-					}
+					////device.update.begin
+					//if(m_pSerial->m_nSendCount==1)
+					//{
+					//	std::string strFile;
+					//	BinPackage package;
+					//	memset(&package, 0, sizeof(package));
+					//	memcpy(buf, &package, dwLength-5);
+
+					//	unsigned short nLenth=0;
+					//	memcpy(&nLenth, package.length, sizeof(package.length));
+					//	strFile.append((const char *)package.data, nLenth);
+
+					//	//device.update.end
+					//	strData = "@sic,,set,device.update.end,ok\r\n";
+					//	m_pSerial->WritePort((char *)strData.c_str(), strData.length());
+					//}					
+
+					//std::string strTmp;
+					//strTmp.append(buf+10, 19);
+					//if(strTmp=="device.update.begin")
+					//{
+					//	m_pSerial->m_nSendCount++;
+					//}
+					//test_fasong 南方命令 end
 				
 
 					if (m_pSerial->m_hSendWnd!=NULL)

@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(JIAKAO_SDK)\boost_1_58_0\include;$(JIAKAO_SDK)\protobuf-2.6.1\protobuf-2.6.1\src;$(JIAKAO_SDK)\boost_1_58_0;$(IncludePath)</IncludePath>
+    <IncludePath>$(JIAKAO_SDK)\protobuf-3.0.2\src;$(JIAKAO_SDK)\boost_1_58_0\include;$(JIAKAO_SDK)\boost_1_58_0;$(IncludePath)</IncludePath>
     <LibraryPath>$(JIAKAO_SDK)\boost_1_58_0\libs\vc12;$(JIAKAO_SDK)\protobuf-2.6.1\bin\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -58,6 +58,14 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>/Zm4096 %(AdditionalOptions)</AdditionalOptions>
+      <StackReserveSize>
+      </StackReserveSize>
+      <StackCommitSize>
+      </StackCommitSize>
+      <HeapCommitSize>
+      </HeapCommitSize>
+      <HeapReserveSize>1024</HeapReserveSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,41 +86,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="boost_learn\t_boost_thread.cpp" />
+    <ClCompile Include="boost_learn\t_boost_timer.cpp" />
     <ClCompile Include="client.cpp" />
+    <ClCompile Include="client\socket_client_async.cpp" />
+    <ClCompile Include="client\xj\Module_Socket_Connection.cpp" />
     <ClCompile Include="client\ZLTcpClient.cpp" />
     <ClCompile Include="JPSocketClient.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="router\msg_router.cpp" />
-    <ClCompile Include="router\ProBuffer_Message_Dispatcher.cpp" />
-    <ClCompile Include="server\CEngineController.cpp" />
-    <ClCompile Include="server\CIoSvrPool.cpp" />
-    <ClCompile Include="server\CPackageJpProtocol.cpp" />
-    <ClCompile Include="server\CSession.cpp" />
-    <ClCompile Include="server\CSocketEngine.cpp" />
-    <ClCompile Include="server\SocketAcceptManager.cpp" />
-    <ClCompile Include="server\SocketMessageCenter.cpp" />
-    <ClCompile Include="server\UseSocket.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="boost_learn\t_boost_thread.h" />
+    <ClInclude Include="boost_learn\t_boost_timer.h" />
     <ClInclude Include="client.h" />
+    <ClInclude Include="client\ISerialDataCallBack.h" />
+    <ClInclude Include="client\socket_client_async.h" />
+    <ClInclude Include="client\xj\basic_interface.h" />
+    <ClInclude Include="client\xj\common_define.h" />
+    <ClInclude Include="client\xj\Module_Socket_Connection.h" />
+    <ClInclude Include="client\xj\module_socket_connection_interface.h" />
     <ClInclude Include="client\ZLPacket.h" />
     <ClInclude Include="client\ZLTcpClient.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="common\base64.h" />
     <ClInclude Include="JPSocketClient.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="router\message_dispatcher.h" />
-    <ClInclude Include="router\msg_router.h" />
-    <ClInclude Include="router\ProBuffer_Message_Dispatcher.h" />
-    <ClInclude Include="server\CEngineController.h" />
-    <ClInclude Include="server\CIoSvrPool.h" />
-    <ClInclude Include="server\CPackageJpProtocol.h" />
-    <ClInclude Include="server\CSession.h" />
-    <ClInclude Include="server\CSocketEngine.h" />
-    <ClInclude Include="server\ICoreSocketCallBack.h" />
-    <ClInclude Include="server\IIntervalPostMessage.h" />
-    <ClInclude Include="server\SocketAcceptManager.h" />
-    <ClInclude Include="server\SocketMessageCenter.h" />
-    <ClInclude Include="server\UseSocket.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

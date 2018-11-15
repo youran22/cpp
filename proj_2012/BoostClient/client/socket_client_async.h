@@ -8,7 +8,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/thread/thread.hpp>
 
-#include "serial_port/ISerialDataCallBack.h"
+#include "ISerialDataCallBack.h"
 
 //using namespace std; 
 using boost::asio::io_service;   

@@ -294,6 +294,14 @@
 				RelativePath=".\Serial\CESerialPort.h"
 				>
 			</File>
+			<File
+				RelativePath=".\Serial\CP400Cmd.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Serial\CP400Cmd.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="log"
