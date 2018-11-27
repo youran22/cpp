@@ -14,6 +14,7 @@ void Test_Client();
 void test_client_socket();
 void test_client_socket_2();
 void Test_CJPSocketClient();
+void Test_xj_module_socket();
 
 void Test_config();
 

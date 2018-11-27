@@ -8,7 +8,8 @@
 int _tmain(int argc, _TCHAR* argv[]) 
 {
 	//test_client_socket();
-	test_client_socket_2();
+	//test_client_socket_2();
+	Test_xj_module_socket();
 
 	//thread_2();
 
@@ -125,4 +126,20 @@ void Test_CJPSocketClient()
 	CJPSocketClient Sock("", 6060);
 	//Sock.strarConnect();
 	Sock.run();
+}
+
+void Test_xj_module_socket()
+{
+	OPLibrary::CModuleSocketConnection client;
+	client.asyn_connect("172.16.94.132",65433);
+	Sleep(50);
+	if(client.is_connect())
+	{
+		while(1)
+		{
+			std::string strData = "abc";//发送的数据量好像不是固定的？？
+			client.continue_send_data();
+			client.send_data((unsigned char * )strData.c_str(), strData.length());
+		}
+	}
 }
