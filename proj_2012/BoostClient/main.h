@@ -6,7 +6,8 @@
 #include "boost_learn/t_boost_timer.h"
 #include "boost_learn/t_boost_thread.h"
 
-
+#include "km2_car/CarBulider.h"
+void Test_km2_car();
 
 void TestServer();
 void Test_Simple0();

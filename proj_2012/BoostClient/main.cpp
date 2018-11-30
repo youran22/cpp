@@ -7,9 +7,11 @@
 
 int _tmain(int argc, _TCHAR* argv[]) 
 {
+	Test_km2_car();
+
 	//test_client_socket();
 	//test_client_socket_2();
-	Test_xj_module_socket();
+	//Test_xj_module_socket();
 
 	//thread_2();
 
@@ -38,6 +40,17 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	while(1);
 	return 0;
+}
+
+void Test_km2_car()
+{
+	std::string inFile = "E:\\jiapei\\jiapei2\\south_jiapei\\trunk\\TestData\\km2_km3_1126\\c.txt";//km2_20181121//km2_km3_1126//km2_2018_1114
+	std::string outFile = "c:\\car.ets";
+
+	CarBulider carBulider;
+	carBulider.cleanCar();
+	carBulider.importCarCoord(inFile.c_str());
+	carBulider.generateCar(outFile.c_str());
 }
 
 void TestServer()
