@@ -44,7 +44,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 void Test_km2_car()
 {
-	std::string inFile = "E:\\jiapei\\jiapei2\\south_jiapei\\trunk\\TestData\\km2_km3_1126\\c.txt";//km2_20181121//km2_km3_1126//km2_2018_1114
+	std::string inFile = "E:\\jiapei\\jiapei2\\south_jiapei\\trunk\\TestData\\km2_20181121\\c.txt";//km2_20181121//km2_km3_1126//km2_2018_1114
 	std::string outFile = "c:\\car.ets";
 
 	CarBulider carBulider;
