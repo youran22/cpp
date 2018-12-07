@@ -1,9 +1,64 @@
-##ignore this file##
+##ignore this file## 也就是忽略所有文件； 不能！ 则不能上传！
 
 #./*
 .git/
 ##*.*
 !.gitignore
+
+######################################################################################################
+#proj_2009/*
+proj_2009/bin/*
+proj_2009/lib/*
+
+#qcom
+!proj_2009/qcom/*
+proj_2009/qcom/debug/*
+proj_2009/qcom/GeneratedFiles/*
+proj_2009/qcom/*.idb
+proj_2009/qcom/*.pdb
+proj_2009/qcom/*.ncb
+
+#QtTest
+!proj_2009/QtTest/QtTest/*
+proj_2009/QtTest/QtTest/Debug/*
+proj_2009/QtTest/QtTest/*.ncb
+
+!proj_2009/QtTest/QtTest/QtTest/*
+proj_2009/QtTest/QtTest/QtTest/Debug
+proj_2009/QtTest/QtTest/QtTest/GeneratedFiles/*
+
+!proj_2009/QtTest/QtTest/QtTestApp/*
+proj_2009/QtTest/QtTest/QtTestApp/Debug/*
+proj_2009/QtTest/QtTest/QtTestApp/GeneratedFiles/*
+
+
+#ReadWriteExcel
+!proj_2009/ReadWriteExcel/*
+
+#TestConsole
+!proj_2009/TestConsole/*
+#proj_2009/TestConsole/*.*
+proj_2009/TestConsole/Debug/*
+#无法消掉？
+proj_2009/TestConsole/*.ncb
+
+#TestConsole  Console32
+!proj_2009/TestConsole/Console32/*
+proj_2009/TestConsole/Console32/Debug/*
+proj_2009/TestConsole/Console32/*.ncb
+
+
+#不能！
+proj_2009/TestConsole/Console32/south_all/*
+
+#TestConsole  dllAndroid
+#TestConsole  ExcelGeneral
+#TestConsole  nativeCode
+#TestConsole  QtDemo
+proj_2009/TestConsole/QtDemo/GeneratedFiles/*
+
+#TestConsole  testDll
+
 
 ######################################################################################################
 #proj_2012/*
@@ -28,7 +83,76 @@ proj_2012/BoostClient/*.sdf
 proj_2012/BoostClient/*.opensdf
 proj_2012/BoostClient/*.filters
 
+#BoostClient 不能!
+proj_2012/BoostClient/ReconKMSdk
+proj_2012/BoostClient/router
+proj_2012/BoostClient/server 
+proj_2012/BoostClient/common
+proj_2012/BoostClient/config
 
+
+############################################################################################################
+#proj_android
+
+
+
+
+
+
+############################################################################################################
+#  eclipse 必传的文件夹和文件：jni  libs  res  src  .classpath .project .androidManifest.xml copySrcFile.bat 
+#  ic_launcher-web.png proguard-project.txt project.properties
+#proj_eclipse
+!proj_eclipse/*
+proj_eclipse/.metadata/*
+
+#proj_eclipse  NDK_07
+
+!proj_eclipse/NDK_07/*
+proj_eclipse/NDK_07/.externalToolBuilders
+proj_eclipse/NDK_07/.settings
+proj_eclipse/NDK_07/assets
+proj_eclipse/NDK_07/bin
+proj_eclipse/NDK_07/gen
+proj_eclipse/NDK_07/obj
+
+proj_eclipse/NDK_07/.cproject	
+	
+#proj_eclipse  PrjTest00
+
+!proj_eclipse/PrjTest00/*
+proj_eclipse/PrjTest00/.externalToolBuilders
+proj_eclipse/PrjTest00/.settings
+proj_eclipse/PrjTest00/assets
+proj_eclipse/PrjTest00/bin
+proj_eclipse/PrjTest00/gen
+proj_eclipse/PrjTest00/obj
+
+proj_eclipse/PrjTest00/.cproject
+
+#proj_eclipse  swigprj
+
+!proj_eclipse/swigprj/*
+proj_eclipse/swigprj/.externalToolBuilders
+proj_eclipse/swigprj/.settings
+proj_eclipse/swigprj/assets
+proj_eclipse/swigprj/bin
+proj_eclipse/swigprj/gen
+proj_eclipse/swigprj/obj
+
+proj_eclipse/swigprj/.cproject
+
+#proj_eclipse  testSwig
+
+!proj_eclipse/testSwig/*
+proj_eclipse/testSwig/.externalToolBuilders
+proj_eclipse/testSwig/.settings
+proj_eclipse/testSwig/assets
+proj_eclipse/testSwig/bin
+proj_eclipse/testSwig/gen
+proj_eclipse/testSwig/obj
+
+proj_eclipse/testSwig/.cproject
 
 ############################################################################################################
 #./Projects/*
@@ -36,6 +160,12 @@ proj_2012/BoostClient/*.filters
 !Projects/*.*
 
 
+
+
 ######################################################################################################
 #./script/*
 !script/*.*
+
+
+######################################################################################################
+#software

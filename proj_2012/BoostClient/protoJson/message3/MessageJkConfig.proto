@@ -1,0 +1,1021 @@
+syntax = "proto2";
+
+package OPMessage;
+
+//程序启动相关信息
+message SoftwareStartInfo {
+	optional string app_start_sound = 1;                                                 //程序启动时候播报语音
+	optional bool  app_run_mode_xl = 2;                                                  //程序运行模式
+	optional bool  app_run_mode_mn = 3;                                                  //程序运行模式
+	optional bool  app_run_mode_ks = 4;                                                  //程序运行模式
+	optional bool   app_run_server_monitor = 5;                                          //是否需要服务器监控
+	optional string app_run_server_monitor_ip = 6;                                       //远程服务器监控IP地址
+	optional int32  app_run_server_monitor_port = 7;                                     //远程服务器监控端口
+	optional bool   whether_use_iccard = 8;                                              //是否使用IC卡收费控制模块
+	optional int32  app_sound_rate = 9;                                                  //语速: 0-10
+	optional bool whether_use_second_idcard = 10;                                        //身份证是否使用验证
+	optional string secondid_verification_net_fail_voice = 11;                           //网络未连接提示
+	optional string secondid_verification_waiting_voice = 12;                            //开始验证,提示语音
+	optional string secondid_verification_round_started_voice = 13;                      //考试已经开始,不允许验证
+	optional string secondid_verification_registration_unvalid_voice = 14;               //报道模块验证身份证无效
+	optional string secondid_verification_registration_valid_voice = 15;                 //报道模块验证身份证有效,可开始考试
+	optional string secondid_verification_timeout_voice = 16;                            //等待超时,服务器未返回数据
+}
+
+//程序其它项信息
+message OtherConfigInfo {
+	optional bool whether_use_gps_modify_local_time = 1;                                 //是否使用GPS时间修改本机时间
+	optional string gps_valid_sound = 2;                                                 //GPS有效时语音
+	optional string gps_invalid_sound = 3;                                               //GPS无效是语音
+	optional bool whether_ks_mode_alarm_ring = 4;                                        //考试模式报警灯常亮
+}
+
+//传感器单项信息
+enum enum_physic_sensor {
+    PS_FlameOut = 0;                                                                     //熄火
+    PS_Brake = 1;                                                                        //刹车
+    PS_LeftTurn = 2;                                                                     //左转向灯
+    PS_RightTurn = 3;                                                                    //右转向灯
+    PS_HandBrake = 4;                                                                    //手刹
+    PS_SafetyBelt = 5;                                                                   //安全带
+    PS_Door = 6;                                                                         //车门
+    PS_Horn = 7;                                                                         //喇叭
+    PS_AuxiliaryBrake = 8;                                                               //副刹
+    PS_Clutch = 9;                                                                       //离合
+    PS_FarLamp = 10;                                                                     //远光灯
+    PS_NearLamp = 11;                                                                    //近光灯
+	PS_FogLamp = 12;                                                                     //雾灯
+	PS_WarnLamp = 13;                                                                    //警示灯
+	PS_PositionLamp = 14;                                                                //示廓灯
+//	PS_Wiper = 15;                                                                       //雨刷
+	PS_AirBrake = 15;                                                                    //制动气压
+	PS_Fireup = 16;                                                                      //点火开关
+	PS_ManNear = 17;                                                                     //有无人通过
+	PS_ManOnSeat = 18;                                                                   //驾驶座是否有人
+	PS_LeftMirror = 19;                                                                  //左后视镜
+	PS_MiddleMirror = 20;                                                                //中后视镜调整
+	PS_RightMirror = 21;                                                                 //右后视镜调整
+	PS_Seat = 22;                                                                        //座椅调整
+	PS_LfRoundCar = 23;                                                                  //左前 绕车一周
+	PS_RfRoundCar = 24;                                                                  //右前 绕车一周
+	PS_LbRoundCar = 25;                                                                  //左后 绕车一周
+	PS_RbRoundCar = 26;                                                                  //右后 绕车一周	
+}
+message ConfigPhysicSensor {
+	optional enum_physic_sensor sensor_type = 1;                                          //传感器类型
+	optional int32 physic_bit = 2;                                                        //32整数第几位
+	optional int32 physic_power = 3;                                                      //有效高低电平
+	optional bool whether_use = 4;                                                        //是否参与评判
+	optional string physic_sensor_name = 5;                                               //传感器名称
+	optional string physic_sensor_description = 6;                                        //描述信息
+}
+
+//单项考试信息
+message JudgeItemInfo {
+	optional int32  item_id = 1;                                                          //项目标号
+	optional int32  item_index = 2 [default = -1];                                        //地图同类项目编号,默认-1
+	optional string item_name = 3;                                                        //项目名称
+}
+
+//程序基本配置信息
+message ConfigInfoBasic {
+	optional string com_gps = 1 [default = "COM1"];                                       //GPS串口,如: COM1;COM2
+	optional string com_sensor = 2 [default = "COM2"];                                    //传感器串口,如: COM1;COM2
+	optional string com_printer = 3 [default = "COM3"];                                   //打印串口,如: COM1;COM2
+	optional bool   com_printer_whether_use = 4 [default = true];                         //是否使用打印功能
+	optional string com_printer_header = 5;                                               //打印的头部
+	optional string com_printer_footer = 6;                                               //打印的尾部
+	optional double station_latitude = 7;                                                 //基准站--纬度
+	optional double station_longitude = 8;                                                //基准站--经度
+	optional double station_altitude = 9;                                                 //基准站--高程
+	optional double station_centerLontitude = 10;                                         //基准站--中央子午线
+	optional double align_frontAntennaHigh = 11;                                          //姿态参数--前天线高
+	optional double align_backAntennaHigh = 12;                                           //姿态参数--后天线高
+	optional double align_underpanHigh = 13;                                              //姿态参数--底盘高
+	optional double align_baseLine = 14;                                                  //姿态参数--基线长
+	optional double align_pitch = 15;                                                     //姿态参数--俯仰角矫正
+	optional double align_track = 16;                                                     //姿态参数--横滚角矫正
+	optional int32  align_terminalDataHz = 17;                                            //数据频率,默认10
+	optional double align_minspeed = 18;                                                  //最小速度
+	repeated JudgeItemInfo judge_test_items_array = 19;                                   //自动考试科目二列表,如:0,20000,20100,20400,20300,20700,20600
+    repeated JudgeItemInfo judge_test_items_array3 = 20;                                  //自动考试科目三列表,如:40100,40200,40300,40400,40500,40700,40800,40900,41000,41100,41200,41300,41400,41500,40600 */
+	repeated JudgeItemInfo judge_manual_test_items_array = 21;                            //手动考试项目列表
+	optional bool   judge_item_whether_sequence = 22;                                     //考试项目是否顺序进行
+	repeated ConfigPhysicSensor phpsic_sensor_array = 23;                                 //传感器配置信息
+}
+
+message BasicSafety {
+	optional bool   safety_whether_check = 1;                                              //是否检测安全带
+	optional int32  safety_deduction = 2;                                                  //安全带扣分值
+	optional string safety_voice = 3;                                                      //安全带扣分语音
+	optional int32  safety_lasting_time = 4;                                               //持续时间,多久认为触发此事件,默认0,值越大越宽松
+	optional int32  safety_deduction_number = 5;                                           //当前项目最大可以扣分次数,推荐1,-1(无限),0(不检测)
+	optional int32  safety_judge_number = 6;                                               //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message BasicDoor {
+	optional bool   door_whether_check = 1;                                                //是否检测车门
+	optional int32  door_deduction = 2;                                                    //车门扣分值
+	optional string door_voice = 3;                                                        //车门扣分语音
+	optional int32  door_lasting_time = 4;                                                 //持续时间,多久认为触发此事件,默认0,值越大越宽松
+	optional int32  door_deduction_number = 5;                                             //当前项目最大可以扣分次数,推荐1,-1(无限),0(不检测)
+	optional int32  door_judge_number = 6;                                                 //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message BasicHorn {
+	optional bool   horn_whether_check = 1;                                                //是否检测喇叭
+	optional int32  horn_deduction = 2;                                                    //喇叭扣分值
+	optional string horn_voice = 3;                                                        //喇叭扣分语音
+	optional int32  horn_lasting_time = 4;                                                 //持续时间,多久认为触发此事件,默认0,值越大越宽松
+	optional int32  horn_deduction_number = 5;                                             //当前项目最大可以扣分次数,推荐1,-1(无限),0(不检测)
+	optional int32  horn_judge_number = 6;                                                 //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message BasicFlameout {
+	optional bool   flameout_whether_check = 1;                                            //是否检测熄火
+	optional int32  flameout_deduction = 2;                                                //熄火扣分值
+	optional string flameout_voice = 3;                                                    //熄火扣分语音
+	optional int32  flameout_lasting_time = 4;                                             //持续时间,多久认为触发此事件,默认0,推荐3000,值越大越宽松	
+	optional int32  flameout_deduction_number = 5;                                         //当前项目最大可以扣分次数,推荐1,-1(无限),0(不检测)
+	optional int32  flameout_judge_number = 6;                                             //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message BasicFullLine {
+	optional bool   full_line_whether_check = 1;                                      		  //是否检测路面实线
+	optional int32  full_line_deduction = 2;                                         	 	  //路面实线扣分值
+	optional string full_line_voice = 3;                                             		  //路面实线扣分语音
+	optional int32  full_line_lasting_time = 4;                                      		  //持续时间,多久认为触发此事件,默认0,推荐3000,值越大越宽松	
+	optional int32  full_line_deduction_number = 5;                                 	 	  //当前项目最大可以扣分次数,推荐1,-1(无限),0(不检测)
+	optional int32  full_line_judge_number = 6;                                      		  //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message BasicDottedLine {
+	optional bool   dotted_line_whether_check = 1;                                    		  //是否检测路面虚线
+	optional int32  dotted_line_deduction = 2;                                       		  //路面虚线扣分值
+	optional string dotted_line_voice = 3;                                              	  //路面虚线扣分语音
+	optional int32  dotted_line_lasting_time = 4;                                             //持续时间,多久认为触发此事件,默认0,推荐3000,值越大越宽松	
+	optional int32  dotted_line_deduction_number = 5;                                  	  	  //当前项目最大可以扣分次数,推荐1,-1(无限),0(不检测)
+	optional int32  dotted_line_judge_number = 6;                                     	      //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+message BasicLeftTurnLamp {
+	optional bool   leftTurnLamp_whether_check = 1;                                         //是否检测左转向灯
+	optional int32  leftTurnLamp_deduction = 2;                                             //左转向灯扣分值
+	optional string leftTurnLamp_voice = 3;                                                 //左转向灯扣分语音
+	optional int32  leftTurnLamp_lasting_time = 4;                                          //持续时间,多久认为触发此事件,默认0,值越小越宽松
+	optional int32  leftTurnLamp_deduction_number = 5;                                      //当前项目最大可以扣分次数,推荐1,-1(无限),0(不检测)
+	optional int32  leftTurnLamp_judge_number = 6;                                          //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+	optional bool   leftTurnLamp_lasting_whole_course = 7 [default = false];                //是否持续检测整个状态段, 如:前进状态, 停止状态, 出库状态
+}
+
+message BasicRightTurnLamp {
+	optional bool   rightTurnLamp_whether_check = 1;                                        //是否检测左转向灯
+	optional int32  rightTurnLamp_deduction = 2;                                            //左转向灯扣分值
+	optional string rightTurnLamp_voice = 3;                                                //左转向灯扣分语音
+	optional int32  rightTurnLamp_lasting_time = 4;                                         //持续时间,多久认为触发此事件,默认0,值越小越宽松
+	optional int32  rightTurnLamp_deduction_number = 5;                                     //当前项目最大可以扣分次数,推荐1,-1(无限),0(不检测)
+	optional int32  rightTurnLamp_judge_number = 6;                                         //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+	optional bool   rightTurnLamp_lasting_whole_course = 7 [default = false];               //是否持续检测整个状态段, 如:前进状态, 停止状态, 出库状态
+}
+
+message BasicCarStop {
+	optional bool   carStop_whether_check = 1;                                              //是否检测中途停车
+	optional int32  carStop_deduction = 2;                                                  //中途停车扣分值
+	optional string carStop_voice = 3;                                                      //中途停车扣分语音
+	optional int32  carStop_lasting_time = 4;                                               //持续时间,多久认为触发此事件,默认2000,值越大越宽松
+	optional int32  carStop_deduction_number = 5;                                           //当前项目最大可以扣分次数,推荐1,-1(无限),0(不检测)
+	optional int32  carStop_judge_number = 6;                                               //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message BasicHandBrake {
+	optional bool   handBrake_whether_check = 1;                                            //是否检测手刹
+	optional int32  handBrake_deduction = 2;                                                //手刹扣分值
+	optional string handBrake_voice = 3;                                                    //手刹扣分语音
+	optional int32  handBrake_distance = 4;
+	optional int32  handBrake_lasting_time = 5;                                             //持续时间,多久认为触发此事件,默认2000,值越大越宽松
+	optional int32  handBrake_deduction_number = 6;                                         //当前项目最大可以扣分次数,推荐1,-1(无限),0(不检测)
+	optional int32  handBrake_judge_number = 7;                                             //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message BasicTimeout {
+	optional bool timeout_whether_check = 1;                                                //是否检测项目超时
+	optional int32 timeout_milliseconds = 2;                                                //超时豪秒数
+	optional int32 timeout_deduction = 3;                                                   //超时扣分值
+	optional string timeout_voice = 4;                                                      //超时扣分语音
+}
+
+message BasicClutch {
+	optional bool   clutch_whether_check = 1;                                                //是否检测离合器
+	optional int32  clutch_deduction = 2;                                                    //离合器扣分值
+	optional string clutch_voice = 3;                                                        //离合器扣分语音
+	optional int32  clutch_lasting_time = 4;                                                 //持续时间,多久认为触发此事件,默认2000,值越大越宽松
+	optional int32  clutch_deduction_number = 5;                                             //当前项目最大可以扣分次数,推荐1,-1(无限),0(不检测)
+	optional int32  clutch_judge_number = 6;                                                 //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message BasicRoundCar {
+	optional bool   roundCar_whether_check = 1;                                              //是否绕车一周
+	optional int32  roundCar_deduction = 2;                                                  //绕车一周扣分值
+	optional string roundCar_voice = 3;                                                      //绕车一周扣分语音
+	optional int32  roundCar_lasting_time = 4;                                               //持续时间,多久认为触发此事件,默认2000,值越大越宽松
+	optional int32  roundCar_deduction_number = 5;                                           //当前项目最大可以扣分次数,推荐1,-1(无限),0(不检测)
+	optional int32  roundCar_judge_number = 6;                                               //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message BasicSlowDown {
+	optional bool   slowDown_whether_check = 1 [default = true];                             //是否检测减速
+	optional int32  slowDown_deduction = 2;                                                  //减速扣分值
+	optional string slowDown_voice = 3;                                                      //减速扣分语音
+	optional int32  slowDown_lasting_time = 4;                                               //[无]持续时间,多久认为触发此事件,默认2000,值越大越宽松
+	optional int32  slowDown_deduction_number = 5;                                           //当前项目最大可以扣分次数,推荐1,-1(无限),0(不检测)
+	optional int32  slowDown_judge_number = 6;                                               //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+	optional int32  limit_speed = 7;                                                         //限速 km/h
+}
+
+message BasicFireUp {
+	optional bool    fireup_whether_check = 1;											  	 //是否检测点火
+	optional int32   fireup_deduction = 2;												     //点火扣分值
+	optional string  fireup_voice = 3;													     //点火扣分语音
+	optional int32   fireup_lasting_time = 4;											     //[无]持续时间,多久认为触发此事件,默认2000
+	optional int32  slowDown_judge_number = 5;                                               //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message BasicSeat{
+	optional bool    seat_whether_check = 1;											  	 //是否检测座椅调整
+	optional int32   seat_deduction = 2;												     //座椅扣分值
+	optional string  seat_voice = 3;													     //座椅扣分语音
+	optional int32   seat_lasting_time = 4;											         //[无]持续时间,多久认为触发此事件,默认2000
+	optional int32   slowDown_judge_number = 5;                                               //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message BasicLeftMirror{
+	optional bool    left_mirror_whether_check = 1;							 				 //是否检测左后视镜调整
+	optional int32   left_mirror_deduction = 2;												 //左后视镜扣分值
+	optional string  left_mirror_voice = 3;												 	 //左后视镜扣分语音
+	optional int32   left_mirror_lasting_time = 4;										     //[无]持续时间,多久认为触发此事件,默认2000
+	optional int32   left_judge_number = 5;                                                  //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message BasicMiddleMirror{
+	optional bool    middle_mirror_whether_check = 1;							 			//是否检测中后视镜调整
+	optional int32   middle_mirror_deduction = 2;											//中后视镜扣分值
+	optional string  middle_mirror_voice = 3;												//中后视镜扣分语音
+	optional int32   middle_mirror_lasting_time = 4;										//[无]持续时间,多久认为触发此事件,默认2000
+	optional int32   middle_judge_number = 5;                                               //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message BasicRightMirror{
+	optional bool    right_mirror_whether_check = 1;							 			//是否检测右后视镜调整
+	optional int32   right_mirror_deduction = 2;											//右后视镜扣分值
+	optional string  right_mirror_voice = 3;												//右后视镜扣分语音
+	optional int32   right_mirror_lasting_time = 4;											//[无]持续时间,多久认为触发此事件,默认2000
+	optional int32   right_judge_number = 5;                                                //当前项目需要检测的次数,推荐-1(无限),执行检测一次少一次
+}
+
+message ItemJudgeDistance
+{
+	optional bool   item_distance_check = 1;											  //是否判断
+	optional int32  item_min_distance = 2;                                       	      //完成考试需要走过的最小距离
+	optional int32  item_max_distance = 3; 										    	  //完成考试需要走过的最大距离
+	optional int32  item_deduction = 4;                                      			  //扣分情况
+    optional string item_deduction_voice = 5;  										      //扣分语音
+}
+message ItemJudgeTime
+{
+	optional bool   item_time_check = 1;												//是否判断
+	optional int32 item_min_time = 2;                                           		//完成考试需要走过的最小时间
+	optional int32 item_max_time = 3; 													//完成考试需要走过的最大时间
+	optional int32  item_deduction = 4;                                      			//扣分情况
+    optional string item_deduction_voice = 5;  											//扣分语音
+}
+message ItemJudgeSpeed
+{
+	optional bool   item_speed_check = 1;												//是否判断
+	optional int32 item_min_speed = 2;                                       			//完成考试需要的最小速度
+	optional int32 item_max_speed = 3;                                          		//完成考试需要的最大速度
+	optional int32  item_deduction = 4;                                      			//扣分情况
+    optional string item_deduction_voice = 5;  											//扣分语音
+}
+//基本数据评判
+message ItemJudgeBasic {
+	optional BasicSafety          basic_safety = 1;
+	optional BasicDoor            basic_door = 2;
+	optional BasicFlameout        basic_flameout = 3;
+	optional BasicLeftTurnLamp    basic_leftTurnLamp = 4;
+	optional BasicRightTurnLamp   basic_rightTurnLamp = 5;
+	optional BasicCarStop         basic_carStop = 6;
+	optional BasicHandBrake       basic_handBrake = 7;
+	optional BasicTimeout         basic_timeout = 8;
+}
+
+enum enum_judge_retake {
+	retake_start_next_item = 0;                                                             //重新从下一项目开始考试
+	retake_start_item_dk = 1;                                                               //回待考区则开始考试
+}
+//评判规则信息 -- 外部全局
+message GlobalJudgeRule {
+	optional bool   run_mode_mn_again_dk_end = 1;                                           //模拟考试情况下,再次进入待考区直接结束考试
+	optional bool   run_mode_ks_whether_have_second_chance = 2;                             //考试模式下面是否可以考第二次
+	optional string round_start_voice = 3;                                                  //待考区域开始考试语音, 如: 请开始考试
+	optional string item_finish_pass_voice = 4;                                             //结束一项考试通过语音,如: 合格
+	optional string item_finish_unpass_voice = 5;                                           //结束一项考试未通过语音, 如: 不合格
+	optional string round_finish_pass_voice = 6;                                            //结束一轮考试通过语音, 如: 所有考试结束,成绩合格,请开回起点.
+	optional string round_finish_unpass_voice = 7;                                          //结束一轮考试未通过语音, 如: 所有考试结束,成绩不合格,请开回起点.
+	optional string retake_round_start_voice = 8;                                           //考试模式下面进入开始重考语音
+	optional enum_judge_retake retake_type = 9;                                             //重考的模式
+	optional string retake_dk_enter_voice = 10;                                             //重考模式进入待考区语音
+	optional BasicSafety basic_safety = 11;                                                  //全局安全带检测
+	optional BasicDoor basic_door = 12;                                                      //全局车门检测
+	optional BasicFlameout basic_flameout = 13;                                              //全局熄火检测
+	optional double max_speed = 14[default = 50];                                            //全局最大时速km/h
+	optional BasicFullLine basic_full_line = 15;                                             //全局路面实线检测
+	optional BasicDottedLine basic_dotted_line = 16;                                         //全局路面虚线检测
+	optional BasicLeftTurnLamp longtime_leftTurnLamp = 17;                                   //长时间左转向灯
+	optional BasicRightTurnLamp longtime_rightTurnLamp = 18;                                 //长时间右转向灯
+	optional BasicClutch longtime_clutch = 19;                                               //长时间离合器
+	optional double min_distance = 20 [default=2.8];                                         //最小里程
+}
+
+enum enum_judge_points {
+	points_car_all = 0;                                                                     //车身全部点
+	points_call_body = 1;                                                                   //车身24点
+	points_call_wheel = 2;                                                                  //车轮8点
+}
+//评判规则信息 -- 空白区域
+message ItemJudgeRuleZero {
+	optional ItemJudgeBasic basic_event_check = 1;                                          //通用项目检测
+	optional string item_enter_voice = 2;                                                   //进入项目语音
+	optional string item_leave_voice = 3;                                                   //离开项目语音
+	optional string item_start_voice = 4;                                                   //开始项目语音    
+	optional string item_end_voice = 5;                                                     //结束项目语音
+	optional enum_judge_points judge_points_type = 6 [default = points_car_all];            //参与评判点类型
+}
+//评判规则信息 -- 待考区域
+//开始评判
+enum CheckStartTypeStart {
+	Start_Stop_500ms_Forward_500ms = 0;                                                     //车停至少500毫秒,然后前进500ms既认为开始考试
+	Start_LeftRightLamp_Light_So_goout = 1;                                                 //左右灯都开启,然后熄灭认为开始考试
+	Start_Skip_Dk_Manual_Operation = 2;                                                     //跳过待考区, 手动控制开始
+}
+message ItemJudgeRuleDk {
+	optional ItemJudgeBasic basic_event_check = 1;                                          //通用项目检测
+	optional string item_enter_voice = 2;                                                   //进入项目语音
+	optional string item_leave_voice = 3;                                                   //离开项目语音
+	optional string item_start_voice = 4;                                                   //开始项目语音    
+	optional string item_end_voice = 5;                                                     //结束项目语音
+	optional enum_judge_points judge_points_type = 6 [default = points_car_all];            //参与评判点类型
+	
+	optional CheckStartTypeStart check_start_type = 7;                                      //车开始判定类型
+	optional BasicLeftTurnLamp event_check_leftTurnLamp = 8;                                //车开始需要检测左转向灯
+}
+
+//评判规则信息 -- 上车准备
+message ItemJudgeRuleShangCheZhunBei {
+	optional string item_start_voice = 1;                                                   //开始项目语音    
+	optional string item_end_voice = 2;                                                     //结束项目语音
+	optional BasicRoundCar basic_roundcar = 3;                                              //绕车一周
+}
+
+//评判规则信息 -- 灯光模拟
+enum enum_judge_dengguangmoni_type {
+	night_no_lamp_poor_lighting = 0;                                                        //夜间在没有路灯，照明不良条件下行驶
+	night_no_lamp_poor_lighting_in_city = 1;                                                //夜间在没有路灯，照明不良条件下市区行驶
+	night_close_with_car_same_direction = 2;                                                //请将前照灯变为远光灯;夜间同方向近距离跟车行驶
+	night_no_lamp_poor_lighting_in_suburban = 3;                                            //夜间在没有路灯，照明不良条件下郊区行驶
+	night_through_curve_ramp_bridge = 4;                                                    //夜间通过急弯、坡路、拱桥，人行横道或者没有交通信号灯控制的路口
+	fog_driving = 5;                                                                        //雾天行驶
+	night_passing_in_narrow_road = 6;                                                       //请将前照灯变为远光灯;夜间在窄路、窄桥与非机动车会车
+	night_passing_nearly_150_other_car = 7;                                                 //请将前照灯变为远光灯;夜间与对方会车距对方来车将近150米
+	night_car_road_down = 8;                                                                //夜间在道路上发生故障, 紧急停车
+	night_through_no_traffic_signal_road = 9;                                               //夜间通过没有交通信号灯控制的路口
+	simulation_test_done_close_all_light = 10;                                              //模拟夜间考试完成，请关闭所有灯光
+}
+message BasicDengGuangMoNiItem {
+	optional enum_judge_dengguangmoni_type type = 1;
+	optional bool is_participant_judge = 2[default = true];                                 //是否参与评判
+	optional bool is_must_type = 3[default = true];                                         //是否是必考选项
+	optional string tip_voice = 4;                                                          //提示语音
+	optional string pass_voice = 5;                                                         //通过语音
+	optional int32 deduction = 6;                                                           //扣分数值
+	optional int32 time_out = 7;                                                            //超时数值
+	optional string deduction_voice = 8;                                                    //扣分语音
+}
+message ItemJudgeRuleDengGuangMoNi {
+	optional string item_start_voice = 1;                                                   //开始项目语音    
+	optional string item_end_voice = 2;                                                     //结束项目语音
+	optional int32 must_item_count = 3;                                                     //必考项目个数
+	optional int32 not_must_item_count = 4;                                                 //非必考项目个数
+	optional BasicDengGuangMoNiItem basic_night_no_lamp_poor_lighting = 5;                  //开示宽灯、远光灯
+	optional BasicDengGuangMoNiItem basic_night_no_lamp_poor_lighting_in_city = 6;          //开示宽灯、近光灯
+	optional BasicDengGuangMoNiItem basic_night_close_with_car_same_direction = 7;          //开启近光灯
+	optional BasicDengGuangMoNiItem basic_night_no_lamp_poor_lighting_in_suburban = 8;      //开示宽灯、远光灯
+	optional BasicDengGuangMoNiItem basic_night_through_curve_ramp_bridge = 9;              //远近光灯交替闪灯2次
+	optional BasicDengGuangMoNiItem basic_fog_driving = 10;                                 //开前照灯、前后雾灯、警示灯
+	optional BasicDengGuangMoNiItem basic_night_passing_in_narrow_road = 11;                //开近光灯
+	optional BasicDengGuangMoNiItem basic_night_passing_nearly_150_other_car = 12;          //开近光灯
+	optional BasicDengGuangMoNiItem basic_night_car_road_down = 13;                         //关大灯，开示宽灯、警示灯
+	optional BasicDengGuangMoNiItem basic_night_through_no_traffic_signal_road = 14;        //远近光灯交替闪灯2次
+	optional BasicDengGuangMoNiItem basic_simulation_test_done_close_all_light = 15;        //关闭所有灯光即可
+}
+
+//评判规则信息 -- 起步
+message ItemJudgeRuleQiBu {
+	optional string item_start_voice = 1;                                                   //开始项目语音    
+	optional string item_end_voice = 2;                                                     //结束项目语音
+	optional BasicLeftTurnLamp basic_leftturnlamp = 3;                                      //左转向灯
+    optional BasicDoor basic_door = 4;                                                      //车门
+    optional BasicHorn basic_horn = 5;                                                      //喇叭
+	optional BasicFireUp basic_fireup = 6;													//点火
+	optional BasicSeat basic_seat = 7;													    //座椅
+	optional BasicLeftMirror basic_left_mirror = 8;									 		//左后视镜
+	optional BasicMiddleMirror basic_middle_mirror = 9;									 	//中后视镜
+	optional BasicRightMirror basic_right_mirror = 10;									 	//右后视镜
+	
+	optional bool car_hl_whether_check = 11[default = true];                                 //是否检测后溜距离
+	optional string car_hl_distance_more_30cm_voice = 12;                                    //后溜距离大于30厘米语音
+	optional int32 car_hl_distance_more_30cm_deduction = 13;                                 //后溜距离大于30厘米扣分
+	optional string car_hl_distance_less_30cm_voice = 14;                                    //后溜距离小于30厘米语音
+	optional int32 car_hl_distance_less_30cm_deduction = 15;                                 //后溜距离小于30厘米扣分
+
+	optional bool car_handbrake_whether_check = 16[default = true];                           //是否检测手刹起步距离
+	optional int32 car_handbrake_more_distance = 17;										  //手刹起步大于指定距离
+	optional string car_handbrake_more_voice = 18;                        					  //手刹起步大于指定距离语音
+	optional int32 car_handbrake_more_deduction = 19;                   			   	      //手刹起步大于指定距离扣分
+	
+	optional int32 car_handbrake_less_distance = 20;									      //手刹起步小于指定距离
+	optional string car_handbrake_less_voice = 21;                        			    	  //手刹起步小于指定距离语音
+	optional int32 car_handbrake_less_deduction = 22;                      				      //手刹起步小于指定距离语音扣分
+}
+
+//评判规则信息 -- 靠边停车
+message ItemJudgeRuleKaoBianTingChe {
+	optional string item_start_voice = 1;                                                   //开始项目语音    
+	optional string item_end_voice = 2;                                                     //结束项目语音
+	optional BasicRightTurnLamp basic_rightturnlamp = 3;                                    //右转向灯
+	optional BasicFlameout basic_flameout = 4;                                              //熄火检测
+	optional BasicDoor basic_door = 5;                                                      //下车关闭车门检测
+	
+	optional bool limit_complete_distance_whether_check = 6[default = true];                //是否检测限定完成操作的最长距离
+	optional int32 limit_complete_distance = 7;                                             //限定完成操作的最长距离
+	optional string limit_complete_distance_voice = 8;                                      //限定完成操作的最长距离扣分语音
+	optional int32 limit_complete_distance_deduction = 9;                                   //限定完成操作的最长距离扣分数值
+}
+
+//评判规则信息 -- 学校区域
+enum CheckFinishCarPositionXueXiaoQuYu {
+	XueXiaoQuYu_Car_Forward_Car_All_In_Zero = 0;                                            //车前进状态,车体全部点在0区域
+	XueXiaoQuYu_Car_Forward_Car_Head_HasPts_Four = 1;                                       //车前进状态,车头碰到出口4区域
+	XueXiaoQuYu_Car_Forward_Car_End_HasPts_Four = 2;                                        //车前进状态, 车尾碰到出口4区域
+}
+message ItemJudgeRuleXueXiaoQuYu {
+	optional string item_enter_voice = 1;                                                   //进入项目语音
+	optional string item_leave_voice = 2;                                                   //离开项目语音
+	optional string item_start_voice = 3;                                                   //开始项目语音    
+	optional string item_end_voice = 4;                                                     //结束项目语音
+	optional CheckFinishCarPositionXueXiaoQuYu check_finish_type = 5;                       //结束类型
+	optional BasicSlowDown basic_slowdown = 6;                                              //减速相关评判
+}
+
+//评判规则信息 -- 路口左转
+enum CheckFinishCarPositionLuKouZuoZhuan {
+	LuKouZuoZhuan_Car_Forward_Car_All_In_Zero = 0;                                            //车前进状态,车体全部点在0区域
+	LuKouZuoZhuan_Car_Forward_Car_Head_HasPts_Four = 1;                                       //车前进状态,车头碰到出口4区域
+	LuKouZuoZhuan_Car_Forward_Car_End_HasPts_Four = 2;                                        //车前进状态, 车尾碰到出口4区域
+}
+message ItemJudgeRuleLuKouZuoZhuan {
+	optional string item_enter_voice = 1;													  //进入项目语音
+	optional string item_leave_voice = 2;													  //离开项目语音
+	optional string item_start_voice = 3;													  //开始项目语音
+	optional string item_end_voice = 4;													      //结束项目语音
+	optional CheckFinishCarPositionLuKouZuoZhuan check_finish_type = 5;						  //结束类型
+	optional BasicSlowDown basic_slowdown = 6;											      //减速相关评判
+	optional BasicLeftTurnLamp item_leftturnlamp = 7;										  //左转灯
+}
+
+//评判规则信息 -- 路口右转
+enum CheckFinishCarPositionLuKouYouZhuan {
+	LuKouYouZhuan_Car_Forward_Car_All_In_Zero = 0;                                            //车前进状态,车体全部点在0区域
+	LuKouYouZhuan_Car_Forward_Car_Head_HasPts_Four = 1;                                       //车前进状态,车头碰到出口4区域
+	LuKouYouZhuan_Car_Forward_Car_End_HasPts_Four = 2;                                        //车前进状态, 车尾碰到出口4区域
+}
+message ItemJudgeRuleLuKouYouZhuan {
+	optional string item_enter_voice = 1;													  //进入项目语音
+	optional string item_leave_voice = 2;													  //离开项目语音
+	optional string item_start_voice = 3;													  //开始项目语音
+	optional string item_end_voice = 4;													      //结束项目语音
+	optional CheckFinishCarPositionLuKouYouZhuan check_finish_type = 5;						  //结束类型
+	optional BasicSlowDown basic_slowdown = 6;											      //减速相关评判
+	optional BasicRightTurnLamp item_rightturnlamp = 7;										  //右转灯
+}
+
+//评判规则信息 -- 直线通过路口
+enum CheckFinishCarPositionZhiXianTongGuoLuKou {
+	ZhiXianTongGuoLuKou_Car_Forward_Car_All_In_Zero = 0;                                      //车前进状态,车体全部点在0区域
+	ZhiXianTongGuoLuKou_Car_Forward_Car_Head_HasPts_Four = 1;                                 //车前进状态,车头碰到出口4区域
+	ZhiXianTongGuoLuKou_Car_Forward_Car_End_HasPts_Four = 2;                                  //车前进状态, 车尾碰到出口4区域
+}
+message ItemJudgeRuleZhiXianTongGuoLuKou {
+	optional string item_enter_voice = 1;													  //进入项目语音
+	optional string item_leave_voice = 2;													  //离开项目语音
+	optional string item_start_voice = 3;													  //开始项目语音
+	optional string item_end_voice = 4;													      //结束项目语音
+	optional CheckFinishCarPositionZhiXianTongGuoLuKou check_finish_type = 5;				  //结束类型
+	optional BasicSlowDown basic_slowdown = 6;											      //减速相关评判
+}
+
+//评判规则信息 -- 公共汽车站
+enum CheckFinishCarPositionGongGongQiCheZhan {
+	GongGongQiCheZhan_Car_Forward_Car_All_In_Zero = 0;                                        //车前进状态,车体全部点在0区域
+	GongGongQiCheZhan_Car_Forward_Car_Head_HasPts_Four = 1;                                   //车前进状态,车头碰到出口4区域
+	GongGongQiCheZhan_Car_Forward_Car_End_HasPts_Four = 2;                                    //车前进状态, 车尾碰到出口4区域
+}
+message ItemJudgeRuleGongGongQiCheZhan {
+	optional string item_enter_voice = 1;													  //进入项目语音
+	optional string item_leave_voice = 2;													  //离开项目语音
+	optional string item_start_voice = 3;													  //开始项目语音
+	optional string item_end_voice = 4;													      //结束项目语音
+	optional CheckFinishCarPositionGongGongQiCheZhan check_finish_type = 5;				      //结束类型
+	optional BasicSlowDown basic_slowdown = 6;											      //减速相关评判
+}
+
+//评判规则信息 -- 人行横道
+enum CheckFinishCarPositionRenXingHengDao {
+	RenXingHengDao_Car_Forward_Car_All_In_Zero = 0;                                            //车前进状态,车体全部点在0区域
+	RenXingHengDao_Car_Forward_Car_Head_HasPts_Four = 1;                                       //车前进状态,车头碰到出口4区域
+	RenXingHengDao_Car_Forward_Car_End_HasPts_Four = 2;                                        //车前进状态, 车尾碰到出口4区域
+}
+message ItemJudgeRuleRenXingHengDao {
+	optional string item_enter_voice = 1;													  //进入项目语音
+	optional string item_leave_voice = 2;													  //离开项目语音
+	optional string item_start_voice = 3;													  //开始项目语音
+	optional string item_end_voice = 4;													      //结束项目语音
+	optional CheckFinishCarPositionRenXingHengDao check_finish_type = 5;				      //结束类型
+	optional BasicSlowDown basic_slowdown = 6;											      //减速相关评判
+}
+	
+//评判规则信息 -- 直线行驶
+enum CheckFinishCarPositionZhiXianXingShi {
+	ZhiXianXingShi_Car_Forward_Car_All_In_Zero = 0;                                            //车前进状态,车体全部点在0区域
+	ZhiXianXingShi_Car_Forward_Car_Head_HasPts_Four = 1;                                       //车前进状态,车头碰到出口4区域
+	ZhiXianXingShi_Car_Forward_Car_End_HasPts_Four = 2;                                        //车前进状态, 车尾碰到出口4区域
+}
+message ItemJudgeRuleZhiXianXingShi {
+	optional string item_enter_voice = 1;													//进入项目语音
+	optional string item_leave_voice = 2;													//离开项目语音
+	optional string item_start_voice = 3;													//开始项目语音
+	optional string item_end_voice = 4;													    //结束项目语音
+	
+	optional bool   item_direction_check = 5;												//方向控制是否判断
+	optional int32  item_direction_deduction = 6;                                      		//方向控制扣分情况
+    optional int32  item_direction_angle_limit = 7;                                         //方向控制角度限制
+	optional int32  item_direction_lasting_time = 8;                                        //方向控制持续时间
+    optional string item_direction_voice = 9;                                               //方向控制扣分语音
+	
+	optional ItemJudgeDistance   item_distance = 10;										//距离相关
+	optional ItemJudgeTime   item_time = 11;												//时间相关
+	optional ItemJudgeSpeed   item_speed = 12;									    		//速度相关
+	
+	optional CheckFinishCarPositionZhiXianXingShi check_finish_type = 13;                    //结束类型
+}
+
+//评判规则信息 -- 加减档
+enum AddToLimitedGear {
+	Add_To_One_Gear = 0;																//1档
+	Add_To_Two_Gear = 1;																//2档
+	Add_To_Three_Gear = 2;																//3档
+	Add_To_Four_Gear = 3;																//4档
+	Add_To_Five_Gear = 4;																//5档
+	Add_To_Six_Gear = 5;																//6档
+}
+
+//评判规则信息 -- 加减档
+enum ReduceToLimitedGear {
+	Reduce_To_One_Gear = 0;																//1档
+	Reduce_To_Two_Gear = 1;																//2档
+	Reduce_To_Three_Gear = 2;															//3档
+	Reduce_To_Four_Gear = 3;															//4档
+	Reduce_To_Five_Gear = 4;															//5档
+	Reduce_To_Six_Gear = 5;																//6档
+}
+
+//评判规则信息 -- 加减档
+message ItemJudgeRuleJiaJianDang {
+	optional string item_enter_voice = 1;													//进入项目语音
+	optional string item_leave_voice = 2;													//离开项目语音
+	optional string item_start_voice = 3;													//开始项目语音
+	optional string item_end_voice = 4;													    //结束项目语音
+	optional ItemJudgeDistance   item_distance = 5;											//距离相关
+	optional ItemJudgeTime       item_time = 6;												//时间相关
+	
+	optional bool   			 item_jiajiandang_whether_check = 7 [default = true];		//是否检测加减档
+	optional AddToLimitedGear    item_jiajiandang_add_gear = 8;								//增加到指定挡位
+	optional ReduceToLimitedGear item_jiajiandang_reduce_gear = 9;							//减少到指定挡位
+	optional int32 				 item_jiajiandang_deduction = 10;							//加减档扣分
+	optional string 			 item_jiajiandang_voice = 11;								//加减档扣分语音
+	optional ItemJudgeSpeed      item_jiajiandang_one_gear_speed = 12;						//1档速度相关
+	optional ItemJudgeSpeed  	 item_jiajiandang_two_gear_speed = 13;						//2档速度相关
+	optional ItemJudgeSpeed  	 item_jiajiandang_three_gear_speed = 14;					//3档速度相关
+	optional ItemJudgeSpeed  	 item_jiajiandang_four_gear_speed = 15;						//4档速度相关
+	optional ItemJudgeSpeed 	 item_jiajiandang_five_gear_speed = 16;						//5档速度相关
+	optional ItemJudgeSpeed 	 item_jiajiandang_six_gear_speed = 17;						//6档速度相关	
+}
+
+//评判规则信息 -- 调头
+enum CheckFinishCarPositionDiaoTou {
+	DiaoTou_Car_Forward_Car_All_In_Zero = 0;                                               //车前进状态,车体全部点在0区域
+	DiaoTou_Car_Forward_Car_Head_HasPts_Four = 1;                                          //车前进状态,车头碰到出口4区域
+	DiaoTou_Car_Forward_Car_End_HasPts_Four = 2;                                           //车前进状态, 车尾碰到出口4区域
+}
+
+message ItemJudgeRuleDiaoTou {
+	optional string item_enter_voice = 1;													//进入项目语音
+	optional string item_leave_voice = 2;													//离开项目语音
+	optional string item_start_voice = 3;													//开始项目语音
+	optional string item_end_voice = 4;													    //结束项目语音
+	
+	optional BasicLeftTurnLamp item_leftturnlamp = 5;										//左转灯
+	optional CheckFinishCarPositionDiaoTou check_finish_type = 6;                    		//结束类型
+	optional BasicSlowDown basic_slowdown = 7;											    //减速相关评判
+}
+
+//评判规则信息 -- 变更车道
+enum CheckFinishCarPositionBianGengCheDao {
+	BianGengCheDao_Car_Forward_Car_All_In_Zero = 0;                                         //车前进状态,车体全部点在0区域
+	BianGengCheDao_Car_Forward_Car_Head_HasPts_Four = 1;                                    //车前进状态,车头碰到出口4区域
+	BianGengCheDao_Car_Forward_Car_End_HasPts_Four = 2;                                     //车前进状态, 车尾碰到出口4区域
+}
+message ItemJudgeRuleBianGengCheDao {
+	optional string item_enter_voice = 1;													//进入项目语音
+	optional string item_leave_voice = 2;													//离开项目语音
+	optional string item_start_voice = 3;													//开始项目语音
+	optional string item_end_voice = 4;													    //结束项目语音
+	
+	optional ItemJudgeDistance   item_distance = 5;											//距离相关	
+	optional ItemJudgeTime   item_time = 6;												    //时间相关
+	optional ItemJudgeSpeed   item_speed = 7;									    		//速度相关
+	optional BasicLeftTurnLamp item_leftturnlamp = 8;										//左转灯
+	optional BasicRightTurnLamp item_rightturnlamp = 9;										//右转灯
+	
+	optional CheckFinishCarPositionBianGengCheDao check_finish_type = 10;                   //结束类型
+	optional bool item_whether_biangengchedao_one = 11;										//检测变道一次
+	optional bool item_whether_biangengchedao_two = 12;										//检测变道两次
+}
+
+//评判规则信息 -- 超车
+enum CheckFinishCarPositionChaoChe {
+	ChaoChe_Car_Forward_Car_All_In_Zero = 0;                                          		//车前进状态,车体全部点在0区域
+	ChaoChe_Car_Forward_Car_Head_HasPts_Four = 1;                                    	    //车前进状态,车头碰到出口4区域
+	ChaoChe_Car_Forward_Car_End_HasPts_Four = 2;                                    	    //车前进状态, 车尾碰到出口4区域
+}
+message ItemJudgeRuleChaoChe {
+	optional string item_enter_voice = 1;													//进入项目语音
+	optional string item_leave_voice = 2;													//离开项目语音
+	optional string item_start_voice = 3;													//开始项目语音
+	optional string item_end_voice = 4;													    //结束项目语音
+
+	optional ItemJudgeDistance   item_distance = 5;											//距离相关	
+	optional ItemJudgeTime   item_time = 6;													//时间相关
+	optional ItemJudgeSpeed   item_speed = 7;									    		//速度相关
+	
+	optional BasicLeftTurnLamp item_leftturnlamp = 8;										//左转灯
+	optional BasicRightTurnLamp item_rightturnlamp = 9;										//右转灯
+	
+	optional CheckFinishCarPositionChaoChe check_finish_type = 10;                    	    //结束类型
+	optional bool item_whether_chaoche_one = 11;											//检测变道一次
+	optional bool item_whether_chaoche_two = 12;											//检测变道两次
+}
+
+//评判规则信息 -- 会车
+message ItemJudgeRuleHuiChe {
+	optional string item_enter_voice = 1;													//进入项目语音
+	optional string item_leave_voice = 2;													//离开项目语音
+	optional string item_start_voice = 3;													//开始项目语音
+	optional string item_end_voice = 4;													    //结束项目语音
+	
+	optional ItemJudgeDistance   item_distance = 5;										//距离相关
+	optional ItemJudgeTime   item_time = 6;												//时间相关
+	optional ItemJudgeSpeed   item_speed = 7;									    		//速度相关
+}
+
+//评判规则信息 -- 直角转弯
+enum CheckStartCarPositionZjzw {
+	Zjzw_Car_Forward_Car_HasPts_In_One = 0;                                                 //车前进状态,车体有点经过入口1区域         
+	Zjzw_Car_Forward_Car_HasPts_In_One_Five = 1;                                            //车前进状态,车身在1-5区域
+}
+enum CheckFinishCarPositionZjzw {
+	Zjzw_Car_Forward_Car_All_In_Zero_Two = 0;                                               //车前进状态,车体全部点在0;2区域内
+	Zjzw_Car_Forward_Car_Head_HasPts_Two = 1;                                               //车前进状态,车头碰到出口2区域线
+	Zjzw_Car_Forward_Car_End_HasPts_Two = 2;                                                //车前进状态, 车尾碰到出口2区域线
+}
+message ItemJudgeRuleZjzw {
+	optional ItemJudgeBasic basic_event_check = 1;                                          //通用项目检测
+	optional string item_enter_voice = 2;                                                   //进入项目语音
+	optional string item_leave_voice = 3;                                                   //离开项目语音
+	optional string item_start_voice = 4;                                                   //开始项目语音    
+	optional string item_end_voice = 5;                                                     //结束项目语音
+	optional enum_judge_points judge_points_type = 6 [default = points_car_all];            //参与评判点类型
+	
+	optional CheckStartCarPositionZjzw check_start_type = 7;                                //开始类型
+	optional CheckFinishCarPositionZjzw check_finish_type = 8;                              //结束类型
+	
+	optional bool   car_PressLine_whether_check = 9 [default = true];                       //是否检测车压线
+	optional int32  car_PressLine_deduction = 10 [default = 100];                           //车压线扣分
+	optional string car_PressLine_voice = 11;                                               //车压线扣分语音
+	
+	optional bool in_area_again = 12 [default = false];                                      //是否支持库内循环	
+	optional BasicLeftTurnLamp event_check_leftTurnLamp = 13;                                //车辆开始时候检测左转向灯,结束时候检测是否关闭
+	optional BasicRightTurnLamp event_check_rightTurnLamp = 14;                               //车辆开始时候检测左转向灯,结束时候检测是否关闭
+}
+
+//评判规则信息 -- 曲线行驶
+enum CheckStartCarPositionQxxs {
+	Qxxs_Car_Forward_Car_HasPts_In_One = 0;                                                 //车前进状态,车体有点经过入口1区域         
+	Qxxs_Car_Forward_Car_HasPts_In_One_Five = 1;                                            //车前进状态,车身在1-5区域
+}
+enum CheckFinishCarPositionQxxs {
+	Qxxs_Car_Forward_Car_All_In_Zero_Two = 0;                                               //车前进状态,车体全部点在0;2区域内
+	Qxxs_Car_Forward_Car_Head_HasPts_Two = 1;                                               //车前进状态,车头碰到出口2区域线
+	Qxxs_Car_Forward_Car_End_HasPts_Two = 2;                                                //车前进状态, 车尾碰到出口2区域线
+}
+message ItemJudgeRuleQxxs {
+	optional ItemJudgeBasic basic_event_check = 1;                                          //通用项目检测
+	optional string item_enter_voice = 2;                                                   //进入项目语音
+	optional string item_leave_voice = 3;                                                   //离开项目语音
+	optional string item_start_voice = 4;                                                   //开始项目语音    
+	optional string item_end_voice = 5;                                                     //结束项目语音
+	optional enum_judge_points judge_points_type = 6 [default = points_car_all];            //参与评判点类型
+	
+	optional CheckStartCarPositionQxxs check_start_type = 7;                                //开始类型
+	optional CheckFinishCarPositionQxxs check_finish_type = 8;                              //结束类型
+	
+	optional bool   car_PressLine_whether_check = 9 [default = true];                       //是否检测车压线
+	optional int32  car_PressLine_deduction = 10 [default = 100];                           //车压线扣分
+	optional string car_PressLine_voice = 11;                                               //车压线扣分语音
+	
+    optional bool in_area_again = 12 [default = false];                                      //是否支持库内循环		
+}
+
+//评判规则信息 -- 侧方停车
+enum CheckStartCarPositionCftc {
+	Cftc_Car_Forward_Car_HasPts_In_One = 0;                                                 //车前进状态,车体有点经过入口1区域
+    Cftc_Car_Stop_In_Two_Eight = 1;                                                         //车头在2区域,在2;10区域后退
+	Cftc_Car_Back_Car_In_Two_Eight = 2;                                                     //车进入项目,在2;8区域后退
+	Cftc_Car_Head_In_Two_Back = 3;                                                          //车头在2区域,在2;8区域后退
+	Cftc_Car_Forward_Car_HasPts_In_Two = 4;                                                 //车前进状态,车体有点经过出口2区域
+	Cftc_Car_Back_Car_Leave_Two = 5;                                                        //车后退离开2区域(前提压2区域才有离开)
+}
+enum CheckFinishCarPositionCftc {
+	Cftc_Car_Forward_Car_HasPts_Eight = 0;                                                  //车前进状态,车体有点进入8区域
+	Cftc_Car_Forward_When_Car_End = 1;                                                      //入库停止起步即结束
+	Cftc_Car_Stop_When_Car_End = 2;                                                         //入库停止即结束
+	Cftc_Car_Forward_Car_All_In_Zero_Two = 3;                                               //车前进状态,车体全部点在0;2区域内
+	Cftc_Car_Forward_Car_Head_HasPts_Two = 4;                                               //车前进状态,车头碰到出口2区域线
+	Cftc_Car_Forward_Car_End_HasPts_Two = 5;                                                //车前进状态, 车尾碰到出口2区域线
+	Cftc_Car_Forward_Car_Leave_Six = 6;                                                     //车前进状态,车离开6区域
+}
+message CftcPressLine {
+	optional string car_run_pressline_3_voice = 1;                                         //车辆行驶压左边缘线语音(3)
+	optional int32 car_run_pressline_3_deduction = 2;                                      //车辆行驶压左边缘线扣分(3)
+	optional string car_run_pressline_4_voice = 3;                                         //车辆行驶压右边缘线语音(4)
+	optional int32 car_run_pressline_4_deduction = 4;                                      //车辆行驶压右边缘线扣分(4)
+	optional string car_run_pressline_7_voice = 5;                                         //车辆行驶压右边缘线语音(7)
+	optional int32 car_run_pressline_7_deduction = 6;                                      //车辆行驶压右边缘线扣分(7)
+	optional string car_run_pressline_5_voice = 7;                                         //车辆行驶压库内线语音(5)
+	optional int32 car_run_pressline_5_deduction = 8;                                      //车辆行驶压库内线扣分(5)
+	optional string car_run_pressline_9_voice = 9;                                         //车辆行驶压库内线语音(9)
+	optional int32 car_run_pressline_9_deduction = 10;                                     //车辆行驶压库内线扣分(9)
+	repeated int32 car_pressline_nums_mutex = 11;                                          //车辆压线互斥
+	optional string car_run_pressline_2_voice = 12;                                        //车辆行驶压出口线语音(2)
+	optional int32 car_run_pressline_2_deduction = 13;                                     //车辆行驶压出口线扣分(2)
+}
+message ItemJudgeRuleCftc {
+	optional ItemJudgeBasic basic_event_check = 1;                                          //通用项目检测
+	optional string item_enter_voice = 2;                                                   //进入项目语音
+	optional string item_leave_voice = 3;                                                   //离开项目语音
+	optional string item_start_voice = 4;                                                   //开始项目语音    
+	optional string item_end_voice = 5;                                                     //结束项目语音
+	optional enum_judge_points judge_points_type = 6 [default = points_car_all];            //参与评判点类型
+	
+	optional CheckStartCarPositionCftc check_start_type = 7;                                //开始类型
+	optional CheckFinishCarPositionCftc check_finish_type = 8;                              //结束类型
+	
+	optional bool car_run_error_whether_check = 9[default = true];                          //是否检测路线出错
+	optional string car_run_error_voice = 10;                                               //路线出错语音
+	optional int32 car_run_error_deduction = 11;                                            //路线出错扣分值
+	
+	optional string car_rk_check_right_voice = 12;                                          //入库停车准确语音
+	optional string car_rk_check_fail_voice = 13;                                           //入库停车失败语音
+	optional int32 car_rk_check_fail_deduction = 14;                                        //入库停车失败扣分值
+	
+	optional CftcPressLine forwarding_pressline = 15;                                       //前进状态压线
+	
+	optional BasicRightTurnLamp event_check_rking_rightTurnLamp = 16;                       //入库检测右转向灯
+	optional CftcPressLine rking_pressline = 17;                                            //入库状态压线
+	
+	optional BasicLeftTurnLamp event_check_cking_leftTurnLamp = 18;                         //出库检测左转向灯
+	optional CftcPressLine cking_pressline = 19;                                            //出库状态压线
+	
+	optional string car_run_not_staff_command_voice = 20;                                   //不按考试员指令行驶语音
+	optional int32 car_run_not_staff_command_deduction = 21;                                //不按考试员指令行驶扣分
+	
+    optional bool in_area_again = 22 [default = false];                                     //是否支持库内循环
+	optional int32 car_rk_check_delay_time = 23 [default = 0];                              // 开始检测入库准确的延时时间,默认0
+
+	optional BasicRightTurnLamp event_check_forwarding_rightTurnLamp = 24;                  //前进检测右转向灯
+	
+	optional BasicLeftTurnLamp event_check_waitrk_leftTurnLamp = 25;                        //等待入库判定左转向灯
+	optional BasicRightTurnLamp event_check_waitrk_rightTurnLamp = 26;                      //等待入库判定右转向灯
+	
+	optional BasicLeftTurnLamp event_check_rkend_leftTurnLamp = 27;                         //入库结束判定左转向灯
+	optional BasicRightTurnLamp event_check_rkend_rightTurnLamp = 28;                       //入库结束判定右转向灯
+	
+	optional CftcPressLine carwheel_forwarding_pressline = 29;                              //前进状态压线, 车轮判
+	optional CftcPressLine carwheel_rking_pressline = 30;                                   //入库状态压线
+	optional CftcPressLine carwheel_cking_pressline = 31;                                   //出库状态压线
+}
+
+//评判规则信息 -- 上坡起步
+enum CheckStartCarPositionSpqb {
+	Spqb_Car_Forward_Car_HasPts_In_One = 0;                                                 //车前进状态,车体有点经过入口1区域
+}
+enum CheckFinishCarPositionSpqb {
+    Spqb_Car_Forward_When_Car_CKing = 0;                                                    //车停止后起步即结束
+	Spqb_Car_Forward_Car_All_In_Zero_Two = 1;                                               //车前进状态,车体全部点在0;2区域内
+	Spqb_Car_Forward_Car_Head_HasPts_Two = 2;                                               //车前进状态,车头碰到出口2区域线
+	Spqb_Car_Forward_Car_End_HasPts_Two = 3;                                                //车前进状态, 车尾碰到出口2区域线
+}
+message ItemJudgeRuleSpqb {
+	optional ItemJudgeBasic basic_event_check = 1;                                          //通用项目检测
+	optional string item_enter_voice = 2;                                                   //进入项目语音
+	optional string item_leave_voice = 3;                                                   //离开项目语音
+	optional string item_start_voice = 4;                                                   //开始项目语音    
+	optional string item_end_voice = 5;                                                     //结束项目语音
+	optional enum_judge_points judge_points_type = 6 [default = points_car_all];            //参与评判点类型
+	
+	optional CheckStartCarPositionSpqb check_start_type = 7;                                //开始类型
+	optional CheckFinishCarPositionSpqb check_finish_type = 8;                              //结束类型
+	
+	optional bool car_run_error_whether_check = 9[default = true];                          //是否检测路线出错
+	optional string car_run_error_voice = 10;                                               //路线出错语音
+	optional int32 car_run_error_deduction = 11;                                            //路线出错扣分值
+	
+	optional string car_dd_head_right_voice = 12;                                           //定点准确语音
+	optional string car_dd_head_more_50cm_voice = 13;                                       //定点检查车头超过50厘米语音
+	optional int32 car_dd_head_more_50cm_deduction = 14;                                    //定点检查车头超过50厘米扣分
+	optional string car_dd_head_not_more_50cm_voice = 15;                                   //定点检查车头没有超过50厘米语音
+	optional int32 car_dd_head_not_more_50cm_deduction = 16;                                //定点检查车头没有超过50厘米扣分
+	optional int32  car_dd_carWheel_PressLine_deduction = 17 [default = 100];               //定点检查车轮压线扣分
+	optional string car_dd_carWheel_PressLine_voice = 18;                                   //定点检查车轮压线扣分语音
+	optional string car_dd_right_line_more_30cm_less_50cm_voice = 19;                       //定点检查距右边线超30厘米小于50厘米语音
+	optional int32 car_dd_right_line_more_30cm_less_50cm_deduction = 20;                    //定点检查距右边线超30厘米小于50厘米扣分
+	optional string car_dd_right_line_more_50cm_voice = 21;                                 //定点检查距右边线超50厘米语音
+	optional int32 car_dd_right_line_more_50cm_deduction = 22;                              //定点检查距右边线超50厘米扣分
+	
+	optional string car_hl_distance_more_30cm_voice = 23;                                   //后溜距离大于30厘米语音
+	optional int32 car_hl_distance_more_30cm_deduction = 24;                                //后溜距离大于30厘米扣分
+	optional string car_hl_distance_less_30cm_voice = 25;                                   //后溜距离小于30厘米语音
+	optional int32 car_hl_distance_less_30cm_deduction = 26;                                //后溜距离小于30厘米扣分
+	
+	optional int32 car_qb_timeout_num = 27;                                                 //起步超时时长
+	optional string car_qb_timeout_voice = 28;                                              //起步超时语音
+	optional int32 car_qb_timeout_deduction = 29;                                           //起步超时扣分
+	
+	optional bool   car_PressLine_whether_check = 30 [default = true];                      //是否检测车压线
+	optional int32  car_PressLine_deduction = 31 [default = 100];                           //车压线扣分
+	optional string car_PressLine_voice = 32;                                               //车压线扣分语音
+	
+	optional string car_run_not_staff_command_voice = 33;                                   //不按考试员指令行驶语音
+	optional int32 car_run_not_staff_command_deduction = 34;                                //不按考试员指令行驶扣分
+	
+	optional BasicLeftTurnLamp event_check_cking_leftTurnLamp = 35;                         //车辆出库时候检测是否开左灯
+
+    optional bool in_area_again = 36 [default = false];                                     //是否支持库内循环
+
+	optional BasicRightTurnLamp event_check_forwarding_rightTurnLamp = 37;                  //前进状态检测右转向灯
+	optional BasicLeftTurnLamp event_check_waitqb_leftTurnLamp = 38;                        //等待起步判定左转向灯
+	optional BasicRightTurnLamp event_check_waitqb_rightTurnLamp = 39;                      //等待起步判定右转向灯
+
+	optional BasicHandBrake event_check_waitqb_handBrake = 40;                              //等待起步时候是否拉上手刹    	
+}
+
+//评判规则信息 -- 倒车入库
+enum CheckStartCarPositionDcrk {
+	Dcrk_Car_Forward_Car_HasPts_In_One = 0;                                                 //车前进状态,车体有点经过入口1区域
+	Dcrk_Car_Back_Car_In_Two_Ten = 1;                                                       //车进入项目,在2;10区域后退
+	Dcrk_Car_Head_In_Two_Back = 2;                                                          //车头在2区域,在2;10区域后退
+	Dcrk_Car_Forward_Car_HasPts_In_Two = 3;                                                 //车前进状态,车体有点经过出口2区域
+	Dcrk_Car_Back_Car_Leave_Two = 4;                                                        //车后退离开2区域(前提压2区域才有离开)
+}
+enum CheckFinishCarPositionDcrk {
+	Dcrk_Car_Forward_Car_All_In_Zero_Two = 0;                                               //车前进状态,车体全部点在0;2区域内
+	Dcrk_Car_Forward_Car_Head_HasPts_Two = 1;                                               //车前进状态,车头碰到出口2区域线
+	Dcrk_Car_Forward_Car_End_HasPts_Two = 2;                                                //车前进状态, 车尾碰到出口2区域线
+}
+message DcrkPressLine {
+	optional string car_run_pressline_3_voice = 1;                                         //车辆行驶压左边缘线语音(3)
+	optional int32 car_run_pressline_3_deduction = 2;                                      //车辆行驶压左边缘线扣分(3)
+	optional string car_run_pressline_4_voice = 3;                                         //车辆行驶压右边缘线语音(4)
+	optional int32 car_run_pressline_4_deduction = 4;                                      //车辆行驶压右边缘线扣分(4)
+	optional string car_run_pressline_8_voice = 5;                                         //车辆行驶压右边缘线语音(8)
+	optional int32 car_run_pressline_8_deduction = 6;                                      //车辆行驶压右边缘线扣分(8)
+	optional string car_run_pressline_7_voice = 7;                                         //车辆行驶压库内线语音(7)
+	optional int32 car_run_pressline_7_deduction = 8;                                      //车辆行驶压库内线扣分(7)
+	optional string car_run_pressline_5_voice = 9;                                         //车辆行驶压库内线语音(5)
+	optional int32 car_run_pressline_5_deduction = 10;                                     //车辆行驶压库内线扣分(5)
+	optional string car_run_pressline_6_voice = 11;                                        //车辆行驶压库内线语音(6)
+	optional int32 car_run_pressline_6_deduction = 12;                                     //车辆行驶压库内线扣分(6)
+	repeated int32 car_pressline_nums_mutex = 13;                                          //车辆压线互斥
+}
+message ItemJudgeRuleDcrk {
+	optional ItemJudgeBasic basic_event_check = 1;                                          //通用项目检测
+	optional string item_enter_voice = 2;                                                   //进入项目语音
+	optional string item_leave_voice = 3;                                                   //离开项目语音
+	optional string item_start_voice = 4;                                                   //开始项目语音    
+	optional string item_end_voice = 5;                                                     //结束项目语音
+	optional enum_judge_points judge_points_type = 6 [default = points_car_all];            //参与评判点类型
+	
+	optional CheckStartCarPositionDcrk check_start_type = 7;                                //开始类型
+	optional CheckFinishCarPositionDcrk check_finish_type = 8;                              //结束类型
+	
+	optional bool car_run_error_whether_check = 9[default = true];                          //是否检测路线出错
+	optional string car_run_error_voice = 10;                                                //路线出错语音
+	optional int32 car_run_error_deduction = 11;                                            //路线出错扣分值
+	
+	optional string car_rk_check_right_voice = 12;                                         //入库准确语音
+	optional string car_rk_check_fail_voice = 13;                                           //倒库不入语音
+	optional int32 car_rk_check_fail_deduction = 14;                                        //倒库不入扣分
+	
+	optional DcrkPressLine forwarding_pressline = 15;                                       //前进状态压线
+	optional DcrkPressLine rking_1_pressline = 16;                                          //入库状态压线
+	optional DcrkPressLine cking_1_pressline = 17;                                          //出库状态压线
+	optional DcrkPressLine rking_2_pressline = 18;                                          //入库状态压线
+	optional DcrkPressLine cking_2_pressline = 19;                                          //出库状态压线
+	
+	optional string car_run_not_staff_command_voice = 20;                                   //不按考试员指令行驶语音
+	optional int32 car_run_not_staff_command_deduction = 21;                                //不按考试员指令行驶扣分
+	
+	optional BasicLeftTurnLamp event_check_cking_1_leftTurnLamp = 22;                       //出库检测左转向灯
+	optional BasicRightTurnLamp event_check_cking_2_rightTurnLamp = 23;                     //出库2检测右转向灯
+	
+	optional bool in_area_again = 24 [default = false];                                     //是否支持库内循环
+	optional int32 car_rk_check_delay_time = 25 [default = 0];                              // 开始检测入库准确的延时时间,默认0
+	
+	optional BasicRightTurnLamp event_check_forwarding_rightTurnLamp = 26;                  //前进状态检测右转向灯
+	optional BasicRightTurnLamp event_check_cking_1_rightTurnLamp = 27;                     //出库1检测右转向灯
+	optional BasicLeftTurnLamp event_check_cking_2_leftTurnLamp = 28;                       //出库2检测左转向灯
+	
+	optional BasicLeftTurnLamp event_check_waitrk_1_leftTurnLamp = 29;                      //等待入库1检测左转向灯
+	optional BasicRightTurnLamp event_check_waitrk_1_rightTurnLamp = 30;                    //等待入库1检测右转向灯
+	
+	optional BasicLeftTurnLamp event_check_rkend_1_leftTurnLamp = 31;                       //入库结束1检测左转向灯
+	optional BasicRightTurnLamp event_check_rkend_1_rightTurnLamp = 32;                     //入库结束1检测右转向灯 
+	
+	optional BasicLeftTurnLamp event_check_waitrk_2_leftTurnLamp = 33;                      //等待入库2检测左转向灯
+	optional BasicRightTurnLamp event_check_waitrk_2_rightTurnLamp = 34;                    //等待入库2检测右转向灯
+	
+	optional BasicLeftTurnLamp event_check_rkend_2_leftTurnLamp = 35;                       //入库结束2检测左转向灯
+	optional BasicRightTurnLamp event_check_rkend_2_rightTurnLamp = 36;                     //入库结束2检测右转向灯
+	
+	optional bool   car_rking_1_frontwheel_over_controlline_check = 37 [default = true];    //是否检测车入库1倒车前压控制线
+	optional int32  car_rking_1_frontwheel_over_controlline_deduction = 38 [default = 100]; //车入库1倒车前压控制线扣分
+	optional string car_rking_1_frontwheel_over_controlline_voice = 39;                     //车入库1倒车前压控制线扣分语音
+	
+	optional bool   car_rking_2_frontwheel_over_controlline_check = 40 [default = true];    //是否检测车入库2倒车前压控制线
+	optional int32  car_rking_2_frontwheel_over_controlline_deduction = 41 [default = 100]; //车入库2倒车前压控制线扣分
+	optional string car_rking_2_frontwheel_over_controlline_voice = 42;                     //车入库2倒车前压控制线扣分语音
+}
+
+//全部评判规则
+message ItemsJudgeRules {
+	optional GlobalJudgeRule   item_global = 1;                                             //全局参数
+	optional ItemJudgeRuleZero item_zero = 2;                                               //空白区域
+	optional ItemJudgeRuleDk   item_dk = 3;                                                 //待考区域
+	optional ItemJudgeRuleZjzw item_zjzw = 4;                                               //直角转弯
+	optional ItemJudgeRuleQxxs item_qxxs = 5;                                               //曲线行驶
+	optional ItemJudgeRuleCftc item_cftc = 6;                                               //侧方停车
+	optional ItemJudgeRuleSpqb item_spqb = 7;                                               //上坡起步
+	optional ItemJudgeRuleDcrk item_dcrk = 8;                                               //倒车入库
+	optional ItemJudgeRuleShangCheZhunBei  item_shangchezhunbei = 9;                        //上车准备
+	optional ItemJudgeRuleDengGuangMoNi item_dengguangmoni = 10;                             //灯光模拟
+	optional ItemJudgeRuleQiBu item_qibu = 11;                                               //起步
+	optional ItemJudgeRuleXueXiaoQuYu item_xuexiaoquyu = 12;								    //学校区域
+	optional ItemJudgeRuleLuKouZuoZhuan item_lukouzuozhuan = 13;								//路口左转
+	optional ItemJudgeRuleLuKouYouZhuan item_lukouyouzhuan = 14;								//路口右转
+	optional ItemJudgeRuleZhiXianTongGuoLuKou item_zhixiantongguolukou = 15;				    //直线通过路口
+	optional ItemJudgeRuleGongGongQiCheZhan item_gonggongqichezhan = 16;				    //公共汽车站	
+	optional ItemJudgeRuleRenXingHengDao item_renxinghengdao = 17;				    		//人行横道
+	optional ItemJudgeRuleZhiXianXingShi item_zhixianxingshi = 18;							//直线行驶
+	optional ItemJudgeRuleJiaJianDang item_jiajiandang = 19;								//加减档
+	optional ItemJudgeRuleDiaoTou item_diaotou = 20;										//调头	
+	optional ItemJudgeRuleBianGengCheDao item_biangengchedao = 21;							//变更车道
+	optional ItemJudgeRuleChaoChe item_chaoche = 22;										//超车	
+	optional ItemJudgeRuleHuiChe item_huiche = 23;											//会车
+	optional ItemJudgeRuleKaoBianTingChe item_kaobiantingche = 24;                          //靠边停车
+}
+
+//核心数据类
+message CoreInfo {
+    optional SoftwareStartInfo software_start_info = 1;                                      //程序启动信息
+	optional ConfigInfoBasic config_info_basic = 2;                                          //程序基本配置信息
+	optional ItemsJudgeRules items_judge_rules = 3;                                          //评判规则
+	optional OtherConfigInfo other_config_info = 4;                                          //其他配置信息
+}
